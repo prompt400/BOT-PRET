@@ -16,7 +16,7 @@ export function setupHealthCheck(port: number = 3000): void {
           uptime: process.uptime(),
           memory: process.memoryUsage(),
         }));
-      } catch (error) {
+      } catch (error: any) {
         res.writeHead(503, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           status: 'unhealthy',
