@@ -1,3 +1,4 @@
+import { setupHealthCheck } from './utils/healthcheck.js';
 import './config/env.js';
 import { BotClient } from './structures/BotClient.js';
 import { logger } from './utils/logger.js';
@@ -18,8 +19,9 @@ async function bootstrap(): Promise<void> {
   try {
     // Initialize database
     logger.info('Initializing database...');
-    await DatabaseManager.initialize();
-    await DatabaseManager.runMigrations();
+    await databaseManager.initialize();
+    await databaseManager.runMigrations();
+    setupHealthCheck(parseInt(process.env.PORT || '3000'));
 
     // Create and start bot
     const client = new BotClient();
@@ -45,7 +47,7 @@ process.on('uncaughtException', (error: Error) => {
 
 process.on('SIGINT', async () => {
   logger.info('Received SIGINT, shutting down gracefully...');
-  await DatabaseManager.close();
+  await databaseManager.close();
   process.exit(0);
 });
 
