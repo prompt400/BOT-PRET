@@ -2,8 +2,9 @@ import { Events, Collection } from 'discord.js';
 import { logger } from '../utils/logger.js';
 import { TicketService } from '../services/TicketService.js';
 import type { Event } from '../types/Event.js';
+import { CooldownService } from '../services/CooldownService.js';
+import { Constants } from '../utils/constants.js';
 
-const cooldowns = new Collection<string, Collection<string, number>>();
 
 const event: Event<Events.InteractionCreate> = {
   name: Events.InteractionCreate,
@@ -19,29 +20,30 @@ const event: Event<Events.InteractionCreate> = {
       }
 
       // Check cooldowns
-      if (!cooldowns.has(command.data.name)) {
-        cooldowns.set(command.data.name, new Collection());
-      }
+const cooldownMs = (command.cooldown || 3) * 1000;
+const cooldownCheck = await CooldownService.check(
+  interaction.user.id,
+  command.data.name,
+  cooldownMs,
+  interaction.guildId || undefined
+);
 
-      const now = Date.now();
-      const timestamps = cooldowns.get(command.data.name)!;
-      const cooldownAmount = (command.cooldown || 3) * 1000;
+if (cooldownCheck.isOnCooldown) {
+  const timeLeft = (cooldownCheck.remainingMs! / 1000).toFixed(1);
+  await interaction.reply({
+    content: `${Constants.Emojis.Warning} Please wait ${timeLeft} more seconds before using \`${command.data.name}\` again.`,
+    ephemeral: true,
+  });
+  return;
+}
 
-      if (timestamps.has(interaction.user.id)) {
-        const expirationTime = timestamps.get(interaction.user.id)! + cooldownAmount;
-
-        if (now < expirationTime) {
-          const timeLeft = (expirationTime - now) / 1000;
-          await interaction.reply({
-            content: `Please wait ${timeLeft.toFixed(1)} more seconds before using \`${command.data.name}\` again.`,
-            ephemeral: true,
-          });
-          return;
-        }
-      }
-
-      timestamps.set(interaction.user.id, now);
-      setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+// Set cooldown
+await CooldownService.set(
+  interaction.user.id,
+  command.data.name,
+  cooldownMs,
+  interaction.guildId || undefined
+);
 
       // Execute command
       try {
