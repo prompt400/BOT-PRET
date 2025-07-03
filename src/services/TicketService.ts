@@ -15,7 +15,7 @@ import { logger } from '../utils/logger.js';
 import type { Ticket } from '../types/Database.js';
 
 export class TicketService {
-  private static db = DatabaseManager.getPool();
+  private static db = databaseManager.getPool();
 
   public static async createTicket(
     guild: Guild,
