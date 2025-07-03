@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/node';
 import { setupHealthCheck } from './utils/healthcheck.js';
 import './config/env.js';
 import { BotClient } from './structures/BotClient.js';
