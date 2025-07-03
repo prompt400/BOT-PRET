@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Collection, REST, Routes } from 'discord.js';
 import { readdir } from 'fs/promises';
 import { join } from 'path';
