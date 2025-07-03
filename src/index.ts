@@ -3,8 +3,7 @@ import './config/env.js';
 import { BotClient } from './structures/BotClient.js';
 import { logger } from './utils/logger.js';
 import { config } from './config/config.js';
-import { DatabaseManager } from './managers/DatabaseManager.js';
-import * as Sentry from '@sentry/node';
+   import { databaseManager } from './managers/DatabaseManager.js';
 
 // Initialize Sentry for error tracking
 if (config.sentry.dsn) {
