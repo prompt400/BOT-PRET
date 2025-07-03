@@ -1,6 +1,5 @@
 import { Events, Collection } from 'discord.js';
 import { logger } from '../utils/logger.js';
-import { TicketService } from '../services/TicketService.js';
 import type { Event } from '../types/Event.js';
 import { CooldownService } from '../services/CooldownService.js';
 import { Constants } from '../utils/constants.js';
