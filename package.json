@@ -19,7 +19,7 @@
     "deploy-commands": "tsx scripts/deploy-commands.ts",
     "db:migrate": "tsx scripts/migrate.ts up",
     "db:migrate:down": "tsx scripts/migrate.ts down",
-    "db:migrate:create": "tsx scripts/create-migration.ts",
+    "db:migrate:create": "tsx scripts/create-migration.ts"
   },
   "dependencies": {
     "discord.js": "^14.14.1",
