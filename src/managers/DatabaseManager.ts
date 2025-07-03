@@ -55,7 +55,7 @@ export class DatabaseManager {
       
       // Setup connection check interval
       setInterval(() => this.checkConnection(), 60000); // Check every minute
-    } catch (error) {
+    } catch (error: any) {
       throw new DatabaseError(`Failed to initialize database: ${error.message}`);
     }
   }
@@ -177,7 +177,7 @@ export class DatabaseManager {
       });
 
       logger.info('Database migrations completed successfully');
-    } catch (error) {
+    } catch (error: any) {
       throw new DatabaseError(`Failed to run migrations: ${error.message}`);
     }
   }
