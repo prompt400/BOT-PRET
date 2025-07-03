@@ -64,52 +64,6 @@ await CooldownService.set(
       }
     }
 
-    // Handle buttons
-    else if (interaction.isButton()) {
-      if (interaction.customId === 'close_ticket') {
-        const ticket = await TicketService.getTicketByChannel(interaction.channelId);
-
-        if (!ticket || !ticket.active) {
-          await interaction.reply({
-            content: '❌ This ticket is already closed or invalid.',
-            ephemeral: true,
-          });
-          return;
-        }
-
-        // Check permissions
-        const isOwner = ticket.user_id === interaction.user.id;
-        const member = interaction.guild?.members.cache.get(interaction.user.id);
-        const isStaff = member?.permissions.has('ManageChannels') || false;
-
-        if (!isOwner && !isStaff) {
-          await interaction.reply({
-            content: '❌ Only the ticket owner or staff can close this ticket.',
-            ephemeral: true,
-          });
-          return;
-        }
-
-        await interaction.deferUpdate();
-
-        const success = await TicketService.closeTicket(
-          interaction.channelId,
-          interaction.user.id
-        );
-
-        if (success) {
-          await interaction.followUp({
-            content: '🔒 Closing ticket...',
-            ephemeral: true,
-          });
-
-          setTimeout(() => {
-            interaction.channel?.delete().catch(() => {});
-          }, 3000);
-        }
-      }
-    }
-
     // Handle autocomplete
     else if (interaction.isAutocomplete()) {
       const command = client.commands.get(interaction.commandName);
