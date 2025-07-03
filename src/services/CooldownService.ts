@@ -1,3 +1,4 @@
+// @ts-ignore
 import { databaseManager } from '../managers/DatabaseManager.js';
 import { logger } from '../utils/logger.js';
 
