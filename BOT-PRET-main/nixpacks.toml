@@ -1,0 +1,21 @@
+[phases.setup]
+nixPkgs = ["nodejs_20", "npm-9_x", "wget"]
+
+[phases.install]
+cmds = [
+    "npm install --no-audit --no-fund"
+]
+
+[phases.build]
+cmds = [
+    "npm run build",
+    "npm prune --production",
+    "chmod +x start.sh"
+]
+
+[start]
+cmd = "./start.sh"
+
+[variables]
+NODE_ENV = "production"
+NODE_OPTIONS = "--max-old-space-size=512"
