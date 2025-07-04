@@ -5,11 +5,12 @@ nixPkgs = ["nodejs_18", "npm-9_x"]
 cmds = [
     "npm --version",
     "node --version",
-    "npm install --production --no-audit --no-fund"
+    "npm install --omit=dev --no-audit --no-fund"
 ]
 
 [phases.build]
-cmds = ["echo 'Build completed'"]
+# Désactiver complètement la phase de build pour éviter le conflit npm ci
+cmds = []
 
 [start]
 cmd = "node BOT-PRET-main/src/index.js"
