@@ -66,6 +66,18 @@ npm start
 
 - `/status` - Affiche le statut et les informations du bot
 
+## 🧹 Nettoyage des commandes
+
+Pour nettoyer toutes les commandes fantômes et ne garder que `/status` :
+
+```bash
+npm run clean-commands
+```
+
+Ce script supprime toutes les commandes enregistrées (globales et par serveur) et ne ré-enregistre que la commande `/status`.
+
+**Note** : Discord peut prendre jusqu'à 1 heure pour actualiser son cache. Pour forcer l'actualisation, redémarrez Discord (Ctrl+R sur Windows/Linux, Cmd+R sur Mac).
+
 ## 🚄 Déploiement Railway
 
 Ce bot est prêt pour un déploiement direct sur Railway :
