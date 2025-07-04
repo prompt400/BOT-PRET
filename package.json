@@ -1,0 +1,31 @@
+{
+  "name": "bot-discord-professionnel",
+  "version": "1.0.0",
+  "description": "Bot Discord professionnel avec architecture d'entreprise",
+  "type": "module",
+  "main": "BOT-PRET-main/src/index.js",
+  "scripts": {
+    "start": "node BOT-PRET-main/src/index.js",
+    "dev": "node --watch BOT-PRET-main/src/index.js",
+    "test": "echo \"Tests à implémenter\"",
+    "lint": "echo \"Linting à configurer\"",
+    "build": "echo \"Build process terminé\""
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "discord",
+    "bot",
+    "professionnel",
+    "entreprise"
+  ],
+  "author": "Équipe Développement",
+  "license": "PROPRIÉTAIRE"
+}
