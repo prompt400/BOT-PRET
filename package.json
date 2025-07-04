@@ -8,8 +8,7 @@
     "start": "node BOT-PRET-main/src/index.js",
     "dev": "node --watch BOT-PRET-main/src/index.js",
     "test": "echo \"Tests à implémenter\"",
-    "lint": "echo \"Linting à configurer\"",
-    "build": "echo \"Build process à définir\""
+    "lint": "echo \"Linting à configurer\""
   },
   "engines": {
     "node": ">=18.0.0"

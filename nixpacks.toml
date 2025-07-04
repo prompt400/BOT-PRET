@@ -8,9 +8,6 @@ cmds = [
     "npm install --omit=dev --no-audit --no-fund"
 ]
 
-[phases.build]
-# Désactiver complètement la phase de build pour éviter le conflit npm ci
-cmds = []
-
 [start]
+# Override le custom start command de Railway
 cmd = "node BOT-PRET-main/src/index.js"
