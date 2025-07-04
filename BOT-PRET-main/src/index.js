@@ -68,7 +68,7 @@ process.on('SIGINT', async () => {
     // Arrêter le client Discord proprement
     if (clientDiscord) {
         try {
-            await clientDiscord.destroy();
+            await clientDiscord.arreter();
         } catch (err) {
             logger.erreur('Erreur lors de la fermeture du client Discord', err);
         }
@@ -86,7 +86,7 @@ process.on('SIGTERM', async () => {
     
     if (clientDiscord) {
         try {
-            await clientDiscord.destroy();
+            await clientDiscord.arreter();
         } catch (err) {
             logger.erreur('Erreur lors de la fermeture du client Discord', err);
         }
