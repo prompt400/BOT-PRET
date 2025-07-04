@@ -1,26 +1,11 @@
 {
-  "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS",
-    "buildCommand": "npm ci --only=production --no-audit --no-fund",
-    "watchPatterns": [
-      "BOT-PRET-main/src/**/*.js",
-      "package.json",
-      "nixpacks.toml"
-    ]
+    "builder": "nixpacks",
+    "buildCommand": "echo 'Skipping build phase'"
   },
   "deploy": {
-    "startCommand": "npm start",
-    "numReplicas": 1,
-    "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 3,
-    "healthcheckPath": "/health",
-    "healthcheckTimeout": 30,
-    "region": "us-west1"
-  },
-  "variables": {
-    "NODE_ENV": "production",
-    "NODE_OPTIONS": "--max-old-space-size=512",
-    "NPM_CONFIG_PRODUCTION": "true"
+    "startCommand": "node BOT-PRET-main/src/index.js",
+    "restartPolicyType": "on-failure",
+    "restartPolicyMaxRetries": 3
   }
 }
