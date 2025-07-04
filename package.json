@@ -9,11 +9,10 @@
     "dev": "node --watch BOT-PRET-main/src/index.js",
     "test": "echo \"Tests à implémenter\"",
     "lint": "echo \"Linting à configurer\"",
-    "build": "echo \"Build process terminé\""
+    "build": "echo \"Build process à définir\""
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "discord.js": "^14.14.1",
