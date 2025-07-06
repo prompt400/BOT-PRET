@@ -8,16 +8,14 @@
     "start": "node BOT-PRET-main/src/index.js",
     "dev": "node --watch BOT-PRET-main/src/index.js",
     "test": "echo \"Tests à implémenter\"",
-    "lint": "echo \"Linting à configurer\"",
-    "audit": "npm audit",
-    "audit:fix": "npm audit fix"
+    "lint": "echo \"Linting à configurer\""
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "discord.js": "^14.16.3",
-    "dotenv": "^16.4.7"
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {},
   "keywords": [
