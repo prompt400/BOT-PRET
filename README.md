@@ -104,3 +104,5 @@ Ce bot est prêt pour un déploiement direct sur Railway :
 ## 📄 Licence
 
 Propriétaire - Tous droits réservés
+
+<!-- Déploiement réparé le 06/07/2025 -->
