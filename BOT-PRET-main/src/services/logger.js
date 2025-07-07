@@ -111,7 +111,9 @@ export default class Logger {
      * Log de debug
      */
     debug(message, donnees = null) {
-        if (process.env.NODE_ENV === 'development') {
+        // Afficher les logs DEBUG si LOG_LEVEL le permet
+        const logLevel = process.env.LOG_LEVEL || 'INFO';
+        if (logLevel === 'DEBUG' || process.env.NODE_ENV === 'development') {
             this.log(NIVEAUX.DEBUG, message, donnees);
         }
     }

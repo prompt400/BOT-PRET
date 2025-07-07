@@ -16,6 +16,13 @@ config();
 // Instance globale du logger
 const logger = new Logger('Principal');
 
+// Log des informations de démarrage
+logger.info(`Démarrage avec NODE_ENV=${process.env.NODE_ENV}`);
+logger.info(`Version Node.js: ${process.version}`);
+logger.info(`Plateforme: ${process.platform}`);
+logger.info(`PID: ${process.pid}`);
+logger.debug('Variables d\'environnement chargées');
+
 // Variable globale pour le client Discord
 let clientDiscord = null;
 
