@@ -13,6 +13,18 @@ class HealthCheckService {
         this.server = null;
         this.isHealthy = false;
         this.startTime = Date.now();
+        this.metrics = {
+            commandsExecuted: 0,
+            errorsCount: 0,
+            lastError: null,
+            memoryUsage: {},
+            discordPing: 0,
+            connectedGuilds: 0,
+            lastHeartbeat: Date.now()
+        };
+        
+        // Mise à jour périodique des métriques
+        this.metricsInterval = setInterval(() => this.updateMetrics(), 30000); // 30 secondes
     }
 
     /**
@@ -22,21 +34,42 @@ class HealthCheckService {
         const port = process.env.PORT || 3000;
         
         this.server = createServer((req, res) => {
+            res.setHeader('Content-Type', 'application/json');
+            
             if (req.url === '/health' && req.method === 'GET') {
                 const uptime = Math.floor((Date.now() - this.startTime) / 1000);
                 const response = {
                     status: this.isHealthy ? 'healthy' : 'unhealthy',
                     uptime: uptime,
                     timestamp: new Date().toISOString(),
-                    service: 'bot-discord',
-                    version: '1.0.0'
+                    service: 'bot-discord-professionnel',
+                    version: '1.0.0',
+                    checks: {
+                        discord: this.isHealthy,
+                        memory: this.checkMemoryHealth(),
+                        uptime: uptime > 0
+                    }
                 };
                 
-                res.writeHead(this.isHealthy ? 200 : 503, { 'Content-Type': 'application/json' });
+                res.writeHead(this.isHealthy ? 200 : 503);
                 res.end(JSON.stringify(response));
+            } else if (req.url === '/metrics' && req.method === 'GET') {
+                // Endpoint de métriques détaillées
+                const metrics = {
+                    ...this.metrics,
+                    uptime: Math.floor((Date.now() - this.startTime) / 1000),
+                    timestamp: new Date().toISOString()
+                };
+                
+                res.writeHead(200);
+                res.end(JSON.stringify(metrics, null, 2));
+            } else if (req.url === '/ready' && req.method === 'GET') {
+                // Endpoint de readiness pour Kubernetes/Railway
+                res.writeHead(this.isHealthy ? 200 : 503);
+                res.end(JSON.stringify({ ready: this.isHealthy }));
             } else {
                 res.writeHead(404);
-                res.end('Not Found');
+                res.end(JSON.stringify({ error: 'Not Found' }));
             }
         });
         
@@ -54,9 +87,67 @@ class HealthCheckService {
     }
     
     /**
+     * Met à jour les métriques système
+     */
+    updateMetrics() {
+        const memUsage = process.memoryUsage();
+        this.metrics.memoryUsage = {
+            heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024), // MB
+            heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024), // MB
+            rss: Math.round(memUsage.rss / 1024 / 1024), // MB
+            external: Math.round(memUsage.external / 1024 / 1024) // MB
+        };
+        this.metrics.lastHeartbeat = Date.now();
+    }
+    
+    /**
+     * Vérifie la santé de la mémoire
+     */
+    checkMemoryHealth() {
+        const memUsage = process.memoryUsage();
+        const heapUsedMB = memUsage.heapUsed / 1024 / 1024;
+        const heapLimitMB = 512; // Limite configurée dans NODE_OPTIONS
+        
+        return heapUsedMB < heapLimitMB * 0.9; // Alerte si > 90% de la limite
+    }
+    
+    /**
+     * Met à jour les métriques Discord
+     */
+    updateDiscordMetrics(client) {
+        if (client && client.ws) {
+            this.metrics.discordPing = client.ws.ping || 0;
+            this.metrics.connectedGuilds = client.guilds.cache.size || 0;
+        }
+    }
+    
+    /**
+     * Incrémente le compteur de commandes
+     */
+    incrementCommandCount() {
+        this.metrics.commandsExecuted++;
+    }
+    
+    /**
+     * Enregistre une erreur
+     */
+    logError(error) {
+        this.metrics.errorsCount++;
+        this.metrics.lastError = {
+            message: error.message,
+            timestamp: new Date().toISOString(),
+            stack: error.stack?.split('\n').slice(0, 3).join('\n') // Premières lignes seulement
+        };
+    }
+    
+    /**
      * Arrête le serveur de health check
      */
     arreter() {
+        if (this.metricsInterval) {
+            clearInterval(this.metricsInterval);
+        }
+        
         if (this.server) {
             this.server.close(() => {
                 logger.info('Serveur de health check arrêté');

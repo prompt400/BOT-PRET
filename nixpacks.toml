@@ -1,0 +1,15 @@
+# Configuration Nixpacks pour Railway
+# Optimisations pour bot Discord en production
+
+[phases.setup]
+nixPkgs = ["nodejs-18_x"]
+
+[phases.install]
+cmds = ["npm ci --omit=dev"]
+
+[start]
+cmd = "node BOT-PRET-main/src/index.js"
+
+[variables]
+NODE_ENV = "production"
+NODE_OPTIONS = "--max-old-space-size=512 --enable-source-maps"

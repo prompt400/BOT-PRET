@@ -6,9 +6,11 @@
   "main": "BOT-PRET-main/src/index.js",
   "scripts": {
     "start": "node BOT-PRET-main/src/index.js",
+    "start:prod": "NODE_ENV=production node BOT-PRET-main/src/index.js",
     "dev": "node --watch BOT-PRET-main/src/index.js",
     "test": "echo \"Tests à implémenter\"",
-    "lint": "echo \"Linting à configurer\""
+    "lint": "echo \"Linting à configurer\"",
+    "postinstall": "echo 'Dependencies installed successfully'"
   },
   "engines": {
     "node": ">=18.0.0"

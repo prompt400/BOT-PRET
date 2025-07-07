@@ -52,11 +52,20 @@ async function demarrerApplication() {
 process.on('unhandledRejection', (raison, promesse) => {
     logger.erreur('Promesse rejetée non gérée', { raison, promesse });
     healthCheckService.setHealthy(false);
+    healthCheckService.logError(new Error(`Unhandled Rejection: ${raison}`));
+    
+    // Ne pas crash en production pour les rejets de promesses
+    if (process.env.NODE_ENV !== 'production') {
+        process.exit(1);
+    }
 });
 
 process.on('uncaughtException', (erreur) => {
     logger.erreur('Exception non capturée', erreur);
     healthCheckService.setHealthy(false);
+    healthCheckService.logError(erreur);
+    
+    // Toujours exit pour les exceptions non capturées
     process.exit(1);
 });
 
