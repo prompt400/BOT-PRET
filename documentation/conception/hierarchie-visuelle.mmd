@@ -1,0 +1,87 @@
+graph TD
+    A[🏠 SERVEUR DISCORD] --> B[🏠 ZONE ACCUEIL & ORIENTATION]
+    A --> C[💕 ZONES SENSUELLES]
+    A --> D[🎮 ESPACES DE JEUX & CRÉATIONS]
+    A --> E[🔮 SALONS SECRETS & TEMPORAIRES]
+    A --> F[⚙️ ZONE TECHNIQUE & SUPPORT]
+    
+    %% Zone Accueil
+    B --> B1[📋 règles-et-charte]
+    B --> B2[👋 bienvenue]
+    B --> B3[📢 annonces]
+    B --> B4[🎭 choix-des-rôles]
+    B --> B5[❓ faq-et-aide]
+    B --> B6[🗺️ guide-du-serveur]
+    
+    %% Zones Sensuelles
+    C --> C1[💬 Discussions Générales]
+    C --> C2[🔥 Hot Talks]
+    C --> C3[🛀 Salons de Détente]
+    
+    C1 --> C11[🌸 chat-général]
+    C1 --> C12[💭 confidences]
+    C1 --> C13[🎉 rencontres]
+    
+    C2 --> C21[🌶️ discussions-hot<br/>Niveau 5+]
+    C2 --> C22[💋 flirt-zone<br/>Niveau 5+]
+    C2 --> C23[🍑 confessions-intimes<br/>Niveau 8+]
+    C2 --> C24[🔞 after-dark<br/>Niveau 10+]
+    
+    C3 --> C31[🎵 musique-ambiance]
+    C3 --> C32[🍷 bar-lounge]
+    C3 --> C33[🌙 détente-nocturne]
+    C3 --> C34[💆 spa-virtuel]
+    
+    %% Espaces de Jeux
+    D --> D1[🎲 Jeux et Défis]
+    D --> D2[🎭 Roleplay]
+    D --> D3[🎨 Créations & Partages]
+    
+    D1 --> D11[🎯 action-ou-vérité]
+    D1 --> D12[🎰 jeux-hasard]
+    D1 --> D13[🏆 défis-quotidiens]
+    D1 --> D14[🎪 animations-events]
+    D1 --> D15[🎁 récompenses]
+    
+    D2 --> D21[📜 création-personnages]
+    D2 --> D22[🏰 scénarios-publics]
+    D2 --> D23[🗝️ rp-privés]
+    D2 --> D24[📚 archives-rp]
+    
+    D3 --> D31[📸 photos-selfies]
+    D3 --> D32[🎨 créations-artistiques]
+    D3 --> D33[✍️ écriture-poésie]
+    D3 --> D34[🎬 contenus-médias<br/>Niveau 5+]
+    
+    %% Salons Secrets
+    E --> E1[🗝️ Salons Secrets]
+    E --> E2[⏳ Salons Temporaires]
+    
+    E1 --> E11[🌟 vip-lounge<br/>Niveau 10+]
+    E1 --> E12[💎 cercle-privilège<br/>Niveau 20+]
+    E1 --> E13[🔐 salons-mystères<br/>Quêtes]
+    
+    E2 --> E21[🎪 événements-spéciaux]
+    E2 --> E22[💫 pop-up-rooms]
+    E2 --> E23[🌠 salons-éphémères]
+    
+    %% Zone Technique
+    F --> F1[🛠️ support-technique]
+    F --> F2[💡 suggestions]
+    F --> F3[🐛 signaler-bug]
+    F --> F4[📊 sondages-feedback]
+    
+    %% Styles
+    classDef accueil fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+    classDef sensuel fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+    classDef jeux fill:#f39c12,stroke:#d68910,stroke-width:2px,color:#fff
+    classDef secret fill:#9b59b6,stroke:#7d3c98,stroke-width:2px,color:#fff
+    classDef tech fill:#95a5a6,stroke:#7f8c8d,stroke-width:2px,color:#fff
+    classDef locked fill:#34495e,stroke:#2c3e50,stroke-width:2px,color:#fff
+    
+    class B,B1,B2,B3,B4,B5,B6 accueil
+    class C,C1,C2,C3,C11,C12,C13,C31,C32,C33,C34 sensuel
+    class C21,C22,C23,C24 locked
+    class D,D1,D2,D3,D11,D12,D13,D14,D15,D21,D22,D23,D24,D31,D32,D33,D34 jeux
+    class E,E1,E2,E11,E12,E13,E21,E22,E23 secret
+    class F,F1,F2,F3,F4 tech

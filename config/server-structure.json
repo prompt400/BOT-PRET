@@ -1,0 +1,455 @@
+{
+  "serverStructure": {
+    "name": "Serveur Discord",
+    "description": "Structure hiérarchique complète du serveur",
+    "categories": [
+      {
+        "id": "accueil",
+        "name": "🏠 ZONE ACCUEIL & ORIENTATION",
+        "position": 0,
+        "channels": [
+          {
+            "name": "📋règles-et-charte",
+            "type": "text",
+            "description": "Règles du serveur et code de conduite",
+            "permissions": {
+              "everyone": {
+                "view": true,
+                "send": false,
+                "react": false
+              }
+            },
+            "topic": "Lisez attentivement les règles avant de continuer"
+          },
+          {
+            "name": "👋bienvenue",
+            "type": "text",
+            "description": "Messages de bienvenue automatiques",
+            "permissions": {
+              "everyone": {
+                "view": true,
+                "send": false
+              },
+              "bot": {
+                "send": true
+              }
+            },
+            "welcomeMessage": true
+          },
+          {
+            "name": "📢annonces",
+            "type": "announcement",
+            "description": "Annonces importantes de l'équipe",
+            "permissions": {
+              "everyone": {
+                "view": true,
+                "send": false
+              }
+            }
+          },
+          {
+            "name": "🎭choix-des-rôles",
+            "type": "text",
+            "description": "Sélection des rôles via réactions",
+            "permissions": {
+              "everyone": {
+                "view": true,
+                "send": false,
+                "react": true
+              }
+            },
+            "roleSelection": true
+          },
+          {
+            "name": "❓faq-et-aide",
+            "type": "text",
+            "description": "Questions fréquentes et aide",
+            "permissions": {
+              "everyone": {
+                "view": true,
+                "send": true
+              }
+            },
+            "slowmode": 30
+          },
+          {
+            "name": "🗺️guide-du-serveur",
+            "type": "text",
+            "description": "Navigation et découverte des zones",
+            "permissions": {
+              "everyone": {
+                "view": true,
+                "send": false
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "zones-sensuelles",
+        "name": "💕 ZONES SENSUELLES",
+        "position": 1,
+        "nsfw": true,
+        "subcategories": [
+          {
+            "name": "💬 Discussions Générales",
+            "channels": [
+              {
+                "name": "🌸chat-général",
+                "type": "text",
+                "description": "Discussions générales décontractées",
+                "requiredRole": "verified"
+              },
+              {
+                "name": "💭confidences",
+                "type": "text",
+                "description": "Partagez vos pensées intimes",
+                "requiredRole": "verified",
+                "slowmode": 10
+              },
+              {
+                "name": "🎉rencontres",
+                "type": "text",
+                "description": "Faites connaissance avec la communauté",
+                "requiredRole": "verified"
+              }
+            ]
+          },
+          {
+            "name": "🔥 Hot Talks",
+            "channels": [
+              {
+                "name": "🌶️discussions-hot",
+                "type": "text",
+                "description": "Conversations plus épicées",
+                "requiredLevel": 5,
+                "nsfw": true
+              },
+              {
+                "name": "💋flirt-zone",
+                "type": "text",
+                "description": "Zone de séduction et flirt",
+                "requiredLevel": 5,
+                "nsfw": true
+              },
+              {
+                "name": "🍑confessions-intimes",
+                "type": "text",
+                "description": "Partagez vos secrets les plus intimes",
+                "requiredLevel": 8,
+                "nsfw": true
+              },
+              {
+                "name": "🔞after-dark",
+                "type": "text",
+                "description": "Accès restreint - Contenu adulte",
+                "requiredLevel": 10,
+                "requiredRole": "18+verified",
+                "nsfw": true,
+                "private": true
+              }
+            ]
+          },
+          {
+            "name": "🛀 Salons de Détente",
+            "channels": [
+              {
+                "name": "🎵musique-ambiance",
+                "type": "voice",
+                "description": "Détendez-vous en musique",
+                "userLimit": 0,
+                "bitrate": 96000
+              },
+              {
+                "name": "🍷bar-lounge",
+                "type": "voice",
+                "description": "Ambiance bar cosy",
+                "userLimit": 10,
+                "bitrate": 64000
+              },
+              {
+                "name": "🌙détente-nocturne",
+                "type": "voice",
+                "description": "Pour les noctambules",
+                "userLimit": 0,
+                "bitrate": 64000
+              },
+              {
+                "name": "💆spa-virtuel",
+                "type": "voice",
+                "description": "Relaxation maximale",
+                "userLimit": 6,
+                "bitrate": 96000
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "espaces-jeux",
+        "name": "🎮 ESPACES DE JEUX & CRÉATIONS",
+        "position": 2,
+        "subcategories": [
+          {
+            "name": "🎲 Jeux et Défis",
+            "channels": [
+              {
+                "name": "🎯action-ou-vérité",
+                "type": "text",
+                "description": "Le classique jeu de soirée",
+                "gameChannel": true
+              },
+              {
+                "name": "🎰jeux-hasard",
+                "type": "text",
+                "description": "Tentez votre chance",
+                "gameChannel": true
+              },
+              {
+                "name": "🏆défis-quotidiens",
+                "type": "text",
+                "description": "Nouveaux défis chaque jour",
+                "dailyReset": true
+              },
+              {
+                "name": "🎪animations-events",
+                "type": "text",
+                "description": "Events et animations spéciales",
+                "eventChannel": true
+              },
+              {
+                "name": "🎁récompenses",
+                "type": "text",
+                "description": "Réclamez vos récompenses",
+                "rewardChannel": true
+              }
+            ]
+          },
+          {
+            "name": "🎭 Roleplay (RP)",
+            "channels": [
+              {
+                "name": "📜création-personnages",
+                "type": "text",
+                "description": "Créez votre personnage RP",
+                "rpChannel": true
+              },
+              {
+                "name": "🏰scénarios-publics",
+                "type": "text",
+                "description": "Scénarios RP ouverts à tous",
+                "rpChannel": true
+              },
+              {
+                "name": "🗝️rp-privés",
+                "type": "text",
+                "description": "Demandes de RP privés",
+                "ticketChannel": true
+              },
+              {
+                "name": "📚archives-rp",
+                "type": "text",
+                "description": "Archives des meilleurs RP",
+                "archiveChannel": true,
+                "permissions": {
+                  "everyone": {
+                    "view": true,
+                    "send": false
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "🎨 Créations & Partages",
+            "channels": [
+              {
+                "name": "📸photos-selfies",
+                "type": "text",
+                "description": "Partagez vos photos",
+                "mediaChannel": true,
+                "requiredRole": "verified"
+              },
+              {
+                "name": "🎨créations-artistiques",
+                "type": "text",
+                "description": "Vos œuvres et créations",
+                "mediaChannel": true
+              },
+              {
+                "name": "✍️écriture-poésie",
+                "type": "text",
+                "description": "Textes et poèmes",
+                "slowmode": 60
+              },
+              {
+                "name": "🎬contenus-médias",
+                "type": "text",
+                "description": "Vidéos et autres médias",
+                "mediaChannel": true,
+                "requiredLevel": 5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "salons-secrets",
+        "name": "🔮 SALONS SECRETS & TEMPORAIRES",
+        "position": 3,
+        "subcategories": [
+          {
+            "name": "🗝️ Salons Secrets",
+            "channels": [
+              {
+                "name": "🌟vip-lounge",
+                "type": "text",
+                "description": "Salon VIP exclusif",
+                "requiredLevel": 10,
+                "private": true
+              },
+              {
+                "name": "💎cercle-privilège",
+                "type": "text",
+                "description": "Pour les membres d'élite",
+                "requiredLevel": 20,
+                "private": true
+              },
+              {
+                "name": "🔐salons-mystères",
+                "type": "text",
+                "description": "Débloquez les mystères",
+                "questRequired": true,
+                "private": true
+              }
+            ]
+          },
+          {
+            "name": "⏳ Salons Temporaires",
+            "channels": [
+              {
+                "name": "🎪événements-spéciaux",
+                "type": "text",
+                "description": "Events limités dans le temps",
+                "temporary": true,
+                "duration": 604800
+              },
+              {
+                "name": "💫pop-up-rooms",
+                "type": "voice",
+                "description": "Salons vocaux temporaires",
+                "temporary": true,
+                "autoCreate": true
+              },
+              {
+                "name": "🌠salons-éphémères",
+                "type": "text",
+                "description": "Disparaissent après inactivité",
+                "temporary": true,
+                "autoDelete": true,
+                "inactivityTimeout": 86400
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "zone-technique",
+        "name": "⚙️ ZONE TECHNIQUE & SUPPORT",
+        "position": 4,
+        "channels": [
+          {
+            "name": "🛠️support-technique",
+            "type": "text",
+            "description": "Assistance technique",
+            "ticketChannel": true
+          },
+          {
+            "name": "💡suggestions",
+            "type": "text",
+            "description": "Vos idées pour améliorer le serveur",
+            "suggestionChannel": true
+          },
+          {
+            "name": "🐛signaler-bug",
+            "type": "text",
+            "description": "Signalez les problèmes",
+            "bugReportChannel": true
+          },
+          {
+            "name": "📊sondages-feedback",
+            "type": "text",
+            "description": "Donnez votre avis",
+            "pollChannel": true
+          }
+        ]
+      }
+    ],
+    "roles": {
+      "levels": [
+        {
+          "level": 0,
+          "name": "Nouveau/Nouvelle",
+          "color": "#95a5a6"
+        },
+        {
+          "level": 5,
+          "name": "Habitué(e)",
+          "color": "#3498db"
+        },
+        {
+          "level": 10,
+          "name": "VIP",
+          "color": "#9b59b6"
+        },
+        {
+          "level": 20,
+          "name": "Elite",
+          "color": "#e74c3c"
+        }
+      ],
+      "special": [
+        {
+          "name": "verified",
+          "displayName": "✅ Vérifié",
+          "color": "#2ecc71"
+        },
+        {
+          "name": "18+verified",
+          "displayName": "🔞 18+ Vérifié",
+          "color": "#e74c3c"
+        },
+        {
+          "name": "creator",
+          "displayName": "🎨 Créateur",
+          "color": "#f39c12"
+        },
+        {
+          "name": "event-winner",
+          "displayName": "🏆 Gagnant Event",
+          "color": "#f1c40f"
+        }
+      ]
+    },
+    "permissions": {
+      "defaultEveryone": {
+        "viewChannel": false,
+        "sendMessages": false,
+        "embedLinks": true,
+        "attachFiles": true,
+        "readMessageHistory": true,
+        "useExternalEmojis": true,
+        "addReactions": true
+      },
+      "verifiedMember": {
+        "viewChannel": true,
+        "sendMessages": true,
+        "embedLinks": true,
+        "attachFiles": true,
+        "readMessageHistory": true,
+        "useExternalEmojis": true,
+        "addReactions": true
+      }
+    }
+  }
+}
