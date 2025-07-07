@@ -8,6 +8,7 @@ import Logger from '../services/logger.js';
 import { gestionnaireErreurs } from '../utilitaires/erreurs.js';
 import SystemeRolesNSFW from '../services/systemeRolesNSFW.js';
 import OnboardingService from '../services/onboardingService.js';
+import gestionnaireDetente from '../services/gestionnaireDetente.js';
 
 const logger = new Logger('InteractionCreate');
 let systemeRoles = null;
@@ -45,6 +46,10 @@ export default {
                      interaction.customId.startsWith('skip_onboarding') ||
                      interaction.customId === 'onboarding_help') {
                 await onboardingService.gererInteraction(interaction);
+            }
+            // Gestion des interactions de détente
+            else if (interaction.customId.startsWith('detente_')) {
+                await gestionnaireDetente.gererInteraction(interaction);
             }
         }
         

@@ -8,6 +8,7 @@ import Logger from '../services/logger.js';
 import healthCheckService from '../services/healthcheck.js';
 import keepAliveService from '../services/keepalive.js';
 import SystemeRolesNSFW from '../services/systemeRolesNSFW.js';
+import gestionnaireDetente from '../services/gestionnaireDetente.js';
 
 const logger = new Logger('Ready');
 
@@ -39,6 +40,16 @@ export default {
             logger.info('Système de rôles NSFW initialisé avec succès');
         } catch (erreur) {
             logger.erreur('Erreur lors de l\'initialisation du système de rôles NSFW', erreur);
+        }
+        
+        // Initialisation des espaces de détente sur tous les serveurs
+        try {
+            for (const guild of client.guilds.cache.values()) {
+                await gestionnaireDetente.initialiserSalons(guild);
+                logger.info(`Espaces de détente initialisés pour ${guild.name}`);
+            }
+        } catch (erreur) {
+            logger.erreur('Erreur lors de l\'initialisation des espaces de détente', erreur);
         }
         
         // Configuration du statut avec rotation
