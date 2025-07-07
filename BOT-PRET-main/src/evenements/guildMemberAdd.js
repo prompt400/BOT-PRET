@@ -1,3 +1,4 @@
+import OnboardingService from '../services/onboardingService.js';
 import SystemeRolesNSFW from '../services/systemeRolesNSFW.js';
 import Logger from '../services/logger.js';
 
@@ -12,19 +13,12 @@ export default {
             // Initialiser le système de rôles NSFW
             const systemeRoles = new SystemeRolesNSFW(member.client);
             
-            // Envoyer l'interface de sélection des rôles
+            // Envoyer l'interface de sélection des rôles NSFW
             await systemeRoles.onNouvelUtilisateur(member);
             
-            // Envoyer un message de bienvenue dans le salon général
-            const welcomeChannel = member.guild.systemChannel || 
-                member.guild.channels.cache.find(ch => ch.name === 'bienvenue' || ch.name === 'welcome');
-            
-            if (welcomeChannel) {
-                await welcomeChannel.send({
-                    content: `🔥 Bienvenue ${member} dans notre univers NSFW !\n` +
-                            `📨 Regarde tes MP pour choisir ton orientation et débloquer l'accès aux salons exclusifs !`
-                });
-            }
+            // Démarrer le processus d'onboarding
+            const onboardingService = new OnboardingService(member.client);
+            await onboardingService.demarrerOnboarding(member);
             
         } catch (erreur) {
             logger.erreur('Erreur lors de l\'accueil du nouveau membre', erreur);

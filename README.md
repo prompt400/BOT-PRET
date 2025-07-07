@@ -59,6 +59,7 @@ npm start
 - `/status` - Affiche le statut et les informations du bot
 - `/badges` - Affiche vos badges ou ceux d'un autre membre
 - `/roles` - Gestion des rôles (orientation, fun, progression, liste)
+- `/onboarding` - Gestion du système d'accueil (admin seulement)
 
 ### 🎮 Jeux et Divertissement
 
@@ -97,8 +98,13 @@ npm start
 ## 🎯 Fonctionnalités Interactives par Zone
 
 ### Zone Accueil & Orientation
+- **Système d'onboarding complet** - Accueil guidé en moins de 2 minutes
+- **Tour guidé interactif** - 5 étapes automatiques pour découvrir le serveur
+- **Menus de sélection dynamiques** - Choix de rôles avec guides spécifiques
 - **Système de rôles par réaction** - Sélection automatique
-- **Messages de bienvenue personnalisés** - Avec compteur de membres
+- **Messages de bienvenue personnalisés** - Avec embed illustré et avatar
+- **Guides privés en MP** - Instructions personnalisées par rôle
+- **Badges d'onboarding** - Récompenses pour l'engagement initial
 - **Vérification obligatoire** - Acceptation des règles pour accès
 
 ### Zones Sensuelles
