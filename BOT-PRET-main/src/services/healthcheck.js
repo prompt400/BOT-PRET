@@ -54,15 +54,43 @@ class HealthCheckService {
                 res.writeHead(this.isHealthy ? 200 : 503);
                 res.end(JSON.stringify(response));
             } else if (req.url === '/metrics' && req.method === 'GET') {
-                // Endpoint de métriques détaillées
-                const metrics = {
-                    ...this.metrics,
-                    uptime: Math.floor((Date.now() - this.startTime) / 1000),
-                    timestamp: new Date().toISOString()
-                };
+                // Endpoint de métriques au format Prometheus
+                const uptime = Math.floor((Date.now() - this.startTime) / 1000);
+                const memUsage = process.memoryUsage();
                 
+                const prometheusMetrics = `
+# HELP bot_discord_uptime_seconds Uptime du bot Discord en secondes
+# TYPE bot_discord_uptime_seconds counter
+bot_discord_uptime_seconds ${uptime}
+
+# HELP bot_discord_commands_total Nombre total de commandes exécutées
+# TYPE bot_discord_commands_total counter
+bot_discord_commands_total ${this.metrics.commandsExecuted}
+
+# HELP bot_discord_errors_total Nombre total d'erreurs
+# TYPE bot_discord_errors_total counter
+bot_discord_errors_total ${this.metrics.errorsCount}
+
+# HELP bot_discord_guilds_count Nombre de serveurs connectés
+# TYPE bot_discord_guilds_count gauge
+bot_discord_guilds_count ${this.metrics.connectedGuilds}
+
+# HELP bot_discord_ping_ms Ping Discord en millisecondes
+# TYPE bot_discord_ping_ms gauge
+bot_discord_ping_ms ${this.metrics.discordPing}
+
+# HELP process_heap_bytes Mémoire heap utilisée en bytes
+# TYPE process_heap_bytes gauge
+process_heap_bytes ${memUsage.heapUsed}
+
+# HELP process_rss_bytes RSS mémoire en bytes
+# TYPE process_rss_bytes gauge
+process_rss_bytes ${memUsage.rss}
+`.trim();
+                
+                res.setHeader('Content-Type', 'text/plain; version=0.0.4; charset=utf-8');
                 res.writeHead(200);
-                res.end(JSON.stringify(metrics, null, 2));
+                res.end(prometheusMetrics);
             } else if (req.url === '/ready' && req.method === 'GET') {
                 // Endpoint de readiness pour Kubernetes/Railway
                 res.writeHead(this.isHealthy ? 200 : 503);

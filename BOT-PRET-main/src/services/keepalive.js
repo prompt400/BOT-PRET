@@ -65,8 +65,15 @@ class KeepAliveService {
             // Log périodique pour Railway
             logger.info(`Keep-alive: Bot actif - Ping: ${ping}ms, Guilds: ${client.guilds.cache.size}`);
             
+            // Vérifier l'inactivité
+            if (this.checkInactivity()) {
+                logger.erreur('Bot inactif depuis trop longtemps, redémarrage recommandé');
+                healthCheckService.setHealthy(false);
+            }
+            
         } catch (erreur) {
             logger.erreur('Erreur dans keep-alive', erreur);
+            healthCheckService.logError(erreur);
         }
     }
     
