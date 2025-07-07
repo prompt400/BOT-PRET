@@ -1,0 +1,244 @@
+{
+  "descriptions": {
+    "accueil": {
+      "📋règles-et-charte": {
+        "topic": "📜 Plongez dans l'univers de notre communauté exclusive",
+        "description": "Avant de démarrer votre aventure sensuelle, prenez un instant pour comprendre notre culture unique et nos valeurs partagées. Chaque règle est une promesse d'harmonie et de respect mutuel dans cet espace adulte raffiné.",
+        "welcomeMessage": "Bienvenue dans notre sanctuaire. Lisez attentivement pour débloquer votre accès complet.",
+        "features": ["Système de validation automatique", "Déblocage progressif des zones", "Quiz de compréhension optionnel"]
+      },
+      "👋bienvenue": {
+        "topic": "🌟 Votre première escale vers des expériences uniques",
+        "description": "Entrez dans notre communauté avec style ! Notre bot exclusif vous accueille chaleureusement et vous guide vers les trésors cachés de notre serveur. C'est ici que votre voyage commence.",
+        "features": ["Message de bienvenue personnalisé", "Attribution automatique du starter pack", "Présentation interactive des zones"]
+      },
+      "📢annonces": {
+        "topic": "📣 Les nouvelles qui façonnent notre univers",
+        "description": "Restez connecté aux battements de cœur de notre communauté. Des événements exclusifs aux mises à jour importantes, ne manquez aucune opportunité de vivre des moments uniques.",
+        "features": ["Notifications d'events VIP", "Previews exclusifs", "Annonces de nouvelles fonctionnalités"]
+      },
+      "🎭choix-des-rôles": {
+        "topic": "🎨 Sculptez votre identité unique",
+        "description": "Personnalisez votre expérience en choisissant les rôles qui vous correspondent. Chaque choix débloque des salons secrets, des privilèges exclusifs et des interactions sur mesure.",
+        "features": ["30+ rôles uniques disponibles", "Combinaisons personnalisées", "Déblocage de salons exclusifs par rôle"]
+      },
+      "❓faq-et-aide": {
+        "topic": "💡 Votre guide personnel dans notre univers",
+        "description": "Des questions ? Notre équipe passionnée et notre communauté bienveillante sont là pour vous guider. Découvrez les secrets cachés et maximisez votre expérience.",
+        "features": ["Réponses instantanées du bot", "Support communautaire 24/7", "Tutoriels interactifs"]
+      },
+      "🗺️guide-du-serveur": {
+        "topic": "🧭 La carte au trésor de nos zones secrètes",
+        "description": "Explorez notre monde fascinant ! Ce guide interactif révèle progressivement les mystères de chaque zone, des salons publics aux chambres VIP les plus exclusives.",
+        "features": ["Carte interactive du serveur", "Système de progression visible", "Indices pour débloquer les zones cachées"]
+      }
+    },
+    "zones-sensuelles": {
+      "💬Discussions Générales": {
+        "🌸chat-général": {
+          "topic": "💬 L'antichambre de toutes les possibilités",
+          "description": "Le cœur battant de notre communauté ! Tissez des liens, partagez vos pensées du moment et laissez la magie opérer. C'est ici que naissent les plus belles connexions.",
+          "features": ["Système de matchmaking subtil", "Mini-jeux sociaux intégrés", "Events surprises quotidiens"]
+        },
+        "💭confidences": {
+          "topic": "🤫 Vos secrets les mieux gardés",
+          "description": "Un espace intime pour partager vos pensées profondes. Libérez-vous dans un cadre bienveillant où chaque confidence est précieuse et respectée.",
+          "features": ["Mode confession anonyme", "Cercles de confiance privés", "Système de soutien communautaire"]
+        },
+        "🎉rencontres": {
+          "topic": "✨ Où les étincelles deviennent flammes",
+          "description": "L'art de la rencontre à son apogée ! Speed dating virtuel, jeux brise-glace et moments spontanés vous attendent. Qui sait quelle connexion vous attend ?",
+          "features": ["Speed dating hebdomadaire", "Profils interactifs", "Système de compatibilité ludique"]
+        }
+      },
+      "🔥Hot Talks": {
+        "🌶️discussions-hot": {
+          "topic": "🔥 Montez la température avec élégance",
+          "description": "Les conversations prennent une tournure plus épicée dans ce salon réservé aux esprits libres. Explorez vos désirs dans un cadre sophistiqué et respectueux.",
+          "features": ["Thèmes quotidiens audacieux", "Mode incognito disponible", "Salons vocaux privés débloquables"]
+        },
+        "💋flirt-zone": {
+          "topic": "💕 L'art de la séduction moderne",
+          "description": "Maîtrisez l'art subtil du flirt dans notre espace dédié. Jeux de séduction, défis romantiques et connexions électrisantes vous attendent.",
+          "features": ["Jeux de flirt exclusifs", "Système de 'chemistry points'", "Coaching séduction par IA"]
+        },
+        "🍑confessions-intimes": {
+          "topic": "🌙 Les secrets de minuit",
+          "description": "Partagez vos fantasmes et écoutez ceux des autres dans notre sanctuaire de l'intimité. Un espace libérateur où l'authenticité règne.",
+          "features": ["Confessions anonymes premium", "Système de réactions privées", "Archives personnelles sécurisées"]
+        },
+        "🔞after-dark": {
+          "topic": "🌃 Quand la nuit révèle ses mystères",
+          "description": "Le salon le plus exclusif, réservé à l'élite. Ici, toutes les barrières tombent dans un environnement ultra-privé et sophistiqué.",
+          "features": ["Accès VIP uniquement", "Events after-hours exclusifs", "Contenu premium déblocable"]
+        }
+      },
+      "🛀Salons de Détente": {
+        "🎵musique-ambiance": {
+          "topic": "🎶 Votre soundtrack sensuel personnel",
+          "description": "Laissez-vous porter par des playlists soigneusement curées. De la détente profonde aux rythmes sensuels, créez l'ambiance parfaite.",
+          "features": ["DJ bot interactif", "Playlists collaboratives", "Sessions live exclusives"]
+        },
+        "🍷bar-lounge": {
+          "topic": "🥂 Le bar où les conversations coulent",
+          "description": "Ambiance feutrée, conversations intimes et cocktails virtuels. Notre bar lounge recrée l'atmosphère unique des rencontres nocturnes.",
+          "features": ["Barman bot interactif", "Happy hours surprises", "Jeux de bar sociaux"]
+        },
+        "🌙détente-nocturne": {
+          "topic": "🌌 Le refuge des âmes nocturnes",
+          "description": "Pour les noctambules et les rêveurs, un espace vocal où le temps s'arrête. Conversations profondes et connexions authentiques sous les étoiles virtuelles.",
+          "features": ["Ambiances sonores immersives", "Mode 'chuchotements'", "Méditations guidées nocturnes"]
+        },
+        "💆spa-virtuel": {
+          "topic": "🧘 Votre oasis de bien-être digital",
+          "description": "Détendez corps et esprit dans notre spa virtuel unique. Sons ASMR, méditations guidées et massages virtuels pour une relaxation totale.",
+          "features": ["Sessions ASMR live", "Thérapie par les sons", "Exercices de relaxation guidés"]
+        }
+      }
+    },
+    "espaces-jeux": {
+      "🎲Jeux et Défis": {
+        "🎯action-ou-vérité": {
+          "topic": "🎪 Le classique réinventé pour adultes",
+          "description": "Redécouvrez ce jeu intemporel dans une version adulte sophistiquée. Des défis audacieux aux vérités révélatrices, testez vos limites avec style.",
+          "features": ["500+ défis exclusifs", "Mode tournoi avec récompenses", "Création de défis personnalisés"]
+        },
+        "🎰jeux-hasard": {
+          "topic": "🎲 Tentez votre chance, gagnez des privilèges",
+          "description": "Casino virtuel où la chance sourit aux audacieux ! Gagnez des points VIP, débloquez des accès exclusifs et montez dans les classements.",
+          "features": ["Mini-casino complet", "Jackpots hebdomadaires", "Échange points contre privilèges"]
+        },
+        "🏆défis-quotidiens": {
+          "topic": "⚡ Nouveaux challenges chaque jour",
+          "description": "Relevez des défis uniques renouvelés quotidiennement. De l'artistique au coquin, chaque défi complété vous rapproche du statut légendaire.",
+          "features": ["Système de streaks", "Défis solo et communautaires", "Récompenses progressives"]
+        },
+        "🎪animations-events": {
+          "topic": "🎭 La scène des événements extraordinaires",
+          "description": "Vivez des moments uniques lors de nos events exclusifs. Soirées à thème, compétitions épiques et surprises garanties !",
+          "features": ["Events hebdomadaires thématiques", "Animations par des pros", "Récompenses exclusives limitées"]
+        },
+        "🎁récompenses": {
+          "topic": "💎 Votre coffre aux trésors personnel",
+          "description": "Réclamez vos gains, échangez vos points et débloquez des privilèges uniques. Plus vous participez, plus les récompenses sont alléchantes !",
+          "features": ["Shop de récompenses", "Système de niveaux VIP", "Items collectors limités"]
+        }
+      },
+      "🎭Roleplay (RP)": {
+        "📜création-personnages": {
+          "topic": "🎨 Donnez vie à vos alter egos",
+          "description": "Créez des personnages captivants pour vos aventures RP. Notre système unique vous guide dans la création de personas détaillées et immersives.",
+          "features": ["Générateur de personnages avancé", "Galerie de personnages", "Système d'évolution"]
+        },
+        "🏰scénarios-publics": {
+          "topic": "🌍 Des mondes à explorer ensemble",
+          "description": "Plongez dans des scénarios épiques ouverts à tous. De la romance médiévale au cyberpunk sensuel, chaque univers offre des possibilités infinies.",
+          "features": ["10+ univers actifs", "Events RP majeurs mensuels", "Système de narration collaborative"]
+        },
+        "🗝️rp-privés": {
+          "topic": "🔐 Vos histoires intimes sur mesure",
+          "description": "Créez des sessions RP privées pour des aventures plus personnelles. Notre système de matching trouve les partenaires parfaits pour vos scénarios.",
+          "features": ["Matching RP intelligent", "Salons privés temporaires", "Modération discrète"]
+        },
+        "📚archives-rp": {
+          "topic": "📖 Les légendes de notre communauté",
+          "description": "Découvrez les meilleures histoires créées par notre communauté. Une bibliothèque d'inspiration et de chefs-d'œuvre narratifs.",
+          "features": ["Hall of Fame RP", "Système de votes", "Récompenses pour auteurs"]
+        }
+      },
+      "🎨Créations & Partages": {
+        "📸photos-selfies": {
+          "topic": "📷 Votre galerie personnelle glamour",
+          "description": "Partagez votre beauté avec confiance ! Notre espace sécurisé célèbre l'expression personnelle avec style et respect.",
+          "features": ["Filtres exclusifs", "Concours photo thématiques", "Système de validation communautaire"]
+        },
+        "🎨créations-artistiques": {
+          "topic": "🖼️ L'art sous toutes ses formes sensuelles",
+          "description": "Exposez vos créations dans notre galerie virtuelle. De l'art suggestif aux œuvres provocantes, exprimez votre créativité sans limites.",
+          "features": ["Expositions virtuelles", "Commissions entre membres", "NFT communautaires"]
+        },
+        "✍️écriture-poésie": {
+          "topic": "🖋️ Les mots qui caressent l'âme",
+          "description": "Partagez vos écrits intimes, de la poésie sensuelle aux nouvelles érotiques. Un espace littéraire où les mots deviennent caresses.",
+          "features": ["Ateliers d'écriture", "Publications hebdomadaires", "Collaborations créatives"]
+        },
+        "🎬contenus-médias": {
+          "topic": "🎥 Votre studio créatif personnel",
+          "description": "Créez et partagez des contenus multimédias exclusifs. Vidéos, podcasts intimes et créations audiovisuelles trouvent leur public ici.",
+          "features": ["Hébergement sécurisé", "Monétisation optionnelle", "Studio d'édition intégré"]
+        }
+      }
+    },
+    "salons-secrets": {
+      "🗝️Salons Secrets": {
+        "🌟vip-lounge": {
+          "topic": "👑 Le sanctuaire de l'élite",
+          "description": "Bienvenue dans le cercle VIP où le luxe rencontre l'exclusivité. Événements privés, avantages uniques et connexions premium vous attendent.",
+          "features": ["Events VIP only", "Accès anticipé aux nouveautés", "Conciergerie personnelle"]
+        },
+        "💎cercle-privilège": {
+          "topic": "💠 L'apex de l'expérience premium",
+          "description": "Le summum du privilège. Accès ultra-exclusif pour les membres les plus dévoués, où chaque interaction est extraordinaire.",
+          "features": ["Conseil consultatif du serveur", "Créations sur demande", "Events sur mesure"]
+        },
+        "🔐salons-mystères": {
+          "topic": "🌌 Les secrets les mieux gardés",
+          "description": "Découvrez ce qui se cache derrière les portes verrouillées. Résolvez les énigmes, accomplissez les quêtes et accédez à l'inaccessible.",
+          "features": ["Énigmes évolutives", "Récompenses mystères", "Lore secret du serveur"]
+        }
+      },
+      "⏳Salons Temporaires": {
+        "🎪événements-spéciaux": {
+          "topic": "🎊 Expériences limitées inoubliables",
+          "description": "Des événements éphémères qui marquent les esprits. Chaque apparition est unique, chaque moment est précieux. Ne les manquez pas !",
+          "features": ["Pop-up events surprises", "Collaborations exclusives", "Récompenses limited edition"]
+        },
+        "💫pop-up-rooms": {
+          "topic": "⚡ Créez votre espace, vivez l'instant",
+          "description": "Générez instantanément des salons vocaux privés pour vos moments intimes. Parfait pour les connexions spontanées et les conversations privées.",
+          "features": ["Création en un clic", "Personnalisation complète", "Auto-nettoyage intelligent"]
+        },
+        "🌠salons-éphémères": {
+          "topic": "🌈 Beauté fugace, souvenirs éternels",
+          "description": "Des espaces qui apparaissent et disparaissent comme des étoiles filantes. Saisissez l'instant avant qu'il ne s'évanouisse !",
+          "features": ["Durée de vie variable", "Thèmes surprises", "Capsules temporelles"]
+        }
+      }
+    },
+    "zone-technique": {
+      "🛠️support-technique": {
+        "topic": "🔧 Votre assistance premium personnalisée",
+        "description": "Une équipe dédiée pour résoudre rapidement tous vos problèmes techniques. Support prioritaire pour une expérience sans accroc.",
+        "features": ["Tickets privés", "Réponse sous 24h", "Tutoriels personnalisés"]
+      },
+      "💡suggestions": {
+        "topic": "🚀 Façonnez l'avenir de notre communauté",
+        "description": "Vos idées comptent ! Proposez des améliorations et votez pour les suggestions de la communauté. Ensemble, créons l'expérience parfaite.",
+        "features": ["Système de votes", "Roadmap communautaire", "Récompenses pour idées implémentées"]
+      },
+      "🐛signaler-bug": {
+        "topic": "🔍 Aidez-nous à perfectionner votre expérience",
+        "description": "Signalez les bugs pour nous aider à maintenir une plateforme impeccable. Chaque rapport contribue à l'excellence de notre service.",
+        "features": ["Formulaire simplifié", "Suivi en temps réel", "Bounty program"]
+      },
+      "📊sondages-feedback": {
+        "topic": "📈 Votre voix façonne notre évolution",
+        "description": "Participez aux décisions importantes ! Vos retours directs nous permettent d'adapter constamment l'expérience à vos désirs.",
+        "features": ["Sondages réguliers", "Résultats transparents", "Impact direct sur les décisions"]
+      }
+    }
+  },
+  "globalFeatures": {
+    "allChannels": [
+      "Système de réputation intégré",
+      "Easter eggs cachés à découvrir",
+      "Intégration avec bot multifonction",
+      "Statistiques personnelles détaillées"
+    ],
+    "hiddenFeatures": {
+      "level10": ["Commandes secrètes du bot", "Accès aux archives privées"],
+      "level20": ["Création de salons personnalisés", "Modération communautaire"],
+      "specialEvents": ["Double XP surprise", "Unlock instantané de zones"]
+    }
+  }
+}
