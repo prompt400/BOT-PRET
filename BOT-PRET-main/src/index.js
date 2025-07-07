@@ -8,7 +8,6 @@ import ClientDiscord from './client.js';
 import Logger from './services/logger.js';
 import { validateurEnvironnement } from './validateurs/environnement.js';
 import healthCheckService from './services/healthcheck.js';
-import keepAliveService from './services/keepalive.js';
 
 // Chargement des variables d'environnement
 config();
@@ -101,10 +100,6 @@ async function arreterGracieusement(signal) {
     try {
         // Marquer comme non sain immédiatement
         healthCheckService.setHealthy(false);
-        
-        // Arrêter le service keep-alive
-        logger.info('Arrêt du service keep-alive...');
-        keepAliveService.stop();
         
         // Arrêter le client Discord
         if (clientDiscord) {

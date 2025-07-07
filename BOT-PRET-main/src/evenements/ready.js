@@ -6,7 +6,6 @@
 import { Events, ActivityType } from 'discord.js';
 import Logger from '../services/logger.js';
 import healthCheckService from '../services/healthcheck.js';
-import keepAliveService from '../services/keepalive.js';
 
 const logger = new Logger('Ready');
 
@@ -27,9 +26,6 @@ export default {
         
         // Mise à jour des métriques Discord
         healthCheckService.updateDiscordMetrics(client);
-        
-        // Démarrage du service keep-alive
-        keepAliveService.start(client);
         
         // Configuration du statut avec rotation
         const statuses = [
@@ -59,7 +55,6 @@ export default {
             logger.info('Nettoyage des intervals suite à la déconnexion');
             intervals.forEach(interval => clearInterval(interval));
             intervals.length = 0;
-            keepAliveService.stop();
         });
         
         // Informations supplémentaires

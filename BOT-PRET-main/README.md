@@ -2,7 +2,7 @@
 
 Bot Discord minimaliste avec architecture d'entreprise, conçu pour un déploiement sur Railway.
 
-## 🚀 Démarrage Rapide
+## 🚀 Installation
 
 ### Prérequis
 
@@ -10,73 +10,22 @@ Bot Discord minimaliste avec architecture d'entreprise, conçu pour un déploiem
 - Un token Discord Bot
 - Un Client ID Discord
 
-### Installation
+### Installation locale
 
 1. Cloner le repository
 2. Installer les dépendances :
 ```bash
 npm install
 ```
-
-### Configuration
-
-Créer un fichier `.env` à la racine avec :
+3. Créer un fichier `.env` à la racine avec :
 ```env
 DISCORD_TOKEN=votre_token_ici
 DISCORD_CLIENT_ID=votre_client_id_ici
 ```
-
-### Lancement
-
+4. Lancer le bot :
 ```bash
 npm start
 ```
-
-## 📁 Structure du Projet
-
-```
-.
-├── src/
-│   ├── index.js              # Point d'entrée
-│   ├── client.js             # Client Discord personnalisé
-│   ├── commandes/            # Commandes slash
-│   ├── evenements/           # Événements Discord
-│   ├── gestionnaires/        # Gestionnaires (commandes, événements)
-│   ├── services/             # Services (logger, etc.)
-│   ├── utilitaires/          # Fonctions utilitaires
-│   ├── validateurs/          # Validateurs
-│   ├── constantes/           # Constantes
-│   ├── config/               # Configuration
-│   ├── middleware/           # Middleware (futur)
-│   ├── modeles/              # Modèles de données (futur)
-│   ├── types/                # Types TypeScript (futur)
-│   ├── interfaces/           # Interfaces (futur)
-│   ├── decorateurs/          # Décorateurs (futur)
-│   └── exceptions/           # Exceptions personnalisées (futur)
-├── config/                   # Configuration globale
-├── tests/                    # Tests
-├── scripts/                  # Scripts utilitaires
-├── logs/                     # Logs (généré)
-├── donnees/                  # Données persistantes
-└── documentation/            # Documentation
-
-```
-
-## 🤖 Commandes
-
-- `/status` - Affiche le statut et les informations du bot
-
-## 🧹 Nettoyage des commandes
-
-Pour nettoyer toutes les commandes fantômes et ne garder que `/status` :
-
-```bash
-npm run clean-commands
-```
-
-Ce script supprime toutes les commandes enregistrées (globales et par serveur) et ne ré-enregistre que la commande `/status`.
-
-**Note** : Discord peut prendre jusqu'à 1 heure pour actualiser son cache. Pour forcer l'actualisation, redémarrez Discord (Ctrl+R sur Windows/Linux, Cmd+R sur Mac).
 
 ## 🚄 Déploiement Railway
 
@@ -88,27 +37,13 @@ Ce bot est prêt pour un déploiement direct sur Railway :
    - `DISCORD_CLIENT_ID`
 3. Déployer
 
-## 📝 Architecture
+## 🤖 Commandes
 
-- **Modulaire** : Chaque fonctionnalité est isolée dans son propre module
-- **Scalable** : Structure permettant l'ajout facile de nouvelles fonctionnalités
-- **Professionnelle** : Patterns de développement d'entreprise
-- **ES6 Modules** : Utilisation des modules JavaScript modernes
-- **Logging** : Système de logs complet avec rotation
-- **Gestion d'erreurs** : Gestion centralisée des erreurs
-
-## 🔒 Sécurité
-
-- Validation des variables d'environnement au démarrage
-- Gestion sécurisée des tokens
-- Logs détaillés pour le debugging
-- Gestion des erreurs robuste
-
-## 📦 Dépendances
-
-- `discord.js` ^14.14.1 - Library Discord
-- `dotenv` ^16.3.1 - Gestion des variables d'environnement
-
-## 📄 Licence
-
-Propriétaire - Tous droits réservés
+### `/status`
+Affiche le statut et les informations du bot :
+- État du bot (en ligne)
+- Latence de l'API Discord
+- Nombre de serveurs
+- Nombre d'utilisateurs
+- Utilisation mémoire
+- Temps de fonctionnement
