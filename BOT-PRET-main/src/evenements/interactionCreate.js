@@ -6,13 +6,8 @@
 import { Events } from 'discord.js';
 import Logger from '../services/logger.js';
 import { gestionnaireErreurs } from '../utilitaires/erreurs.js';
-import SystemeRolesNSFW from '../services/systemeRolesNSFW.js';
-import OnboardingService from '../services/onboardingService.js';
-import gestionnaireDetente from '../services/gestionnaireDetente.js';
 
 const logger = new Logger('InteractionCreate');
-let systemeRoles = null;
-let onboardingService = null;
 
 export default {
     name: Events.InteractionCreate,
@@ -22,37 +17,10 @@ export default {
      * @param {import('discord.js').Interaction} interaction 
      */
     async execute(interaction) {
-        // Initialiser les services si nécessaire
-        if (!systemeRoles) {
-            systemeRoles = new SystemeRolesNSFW(interaction.client);
-        }
-        if (!onboardingService) {
-            onboardingService = new OnboardingService(interaction.client);
-        }
-        
         // Gestion des commandes slash
         if (interaction.isChatInputCommand()) {
             await gererCommandeSlash(interaction);
         }
-        
-        // Gestion des interactions du système de rôles NSFW
-        else if (interaction.isButton() || interaction.isStringSelectMenu()) {
-            if (interaction.customId.startsWith('role_') || interaction.customId === 'select_role_fun') {
-                await systemeRoles.gererInteraction(interaction);
-            }
-            // Gestion des interactions d'onboarding
-            else if (interaction.customId.startsWith('select_onboarding') || 
-                     interaction.customId.startsWith('start_onboarding') ||
-                     interaction.customId.startsWith('skip_onboarding') ||
-                     interaction.customId === 'onboarding_help') {
-                await onboardingService.gererInteraction(interaction);
-            }
-            // Gestion des interactions de détente
-            else if (interaction.customId.startsWith('detente_')) {
-                await gestionnaireDetente.gererInteraction(interaction);
-            }
-        }
-        
         // Autres types d'interactions peuvent être ajoutés ici
     }
 };
