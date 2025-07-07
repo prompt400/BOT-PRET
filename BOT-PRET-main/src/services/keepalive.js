@@ -51,7 +51,7 @@ class KeepAliveService {
             
             // Vérifier le WebSocket ping
             const ping = client.ws.ping;
-            logger.debug(`Keep-alive: WebSocket ping = ${ping}ms`);
+            // logger.debug(`Keep-alive: WebSocket ping = ${ping}ms`); // Désactivé pour des logs plus propres
             
             // Si le ping est trop élevé, logger un avertissement
             if (ping > 500) {
@@ -62,8 +62,8 @@ class KeepAliveService {
             // Forcer une mise à jour des métriques
             healthCheckService.updateDiscordMetrics(client);
             
-            // Log périodique pour Railway
-            logger.info(`Keep-alive: Bot actif - Ping: ${ping}ms, Guilds: ${client.guilds.cache.size}`);
+            // Log périodique pour Railway - Désactivé pour éviter la pollution des logs
+            // logger.info(`Keep-alive: Bot actif - Ping: ${ping}ms, Guilds: ${client.guilds.cache.size}`);
             
             // Vérifier l'inactivité
             if (this.checkInactivity()) {
