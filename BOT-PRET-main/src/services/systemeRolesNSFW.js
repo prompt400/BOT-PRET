@@ -47,10 +47,20 @@ class SystemeRolesNSFW {
      * Vérifie et crée les rôles Discord nécessaires
      */
     async verifierEtCreerRoles() {
-        for (const [categorie, roles] of Object.entries(ROLES_CONFIG)) {
-            for (const [id, config] of Object.entries(roles)) {
-                await this.creerRoleSiNecessaire(id, config);
+        try {
+            const guild = this.client.guilds.cache.first();
+            if (!guild) {
+                logger.avertissement('Aucun serveur trouvé pour créer les rôles');
+                return;
             }
+            
+            for (const [categorie, roles] of Object.entries(ROLES_CONFIG)) {
+                for (const [id, config] of Object.entries(roles)) {
+                    await this.creerRoleSiNecessaire(id, config);
+                }
+            }
+        } catch (erreur) {
+            logger.erreur('Erreur lors de la vérification des rôles', erreur);
         }
     }
 
@@ -234,10 +244,6 @@ class SystemeRolesNSFW {
             else if (interaction.customId === 'select_role_fun') {
                 await this.gererSelectionFun(interaction);
             }
-            // Gérer les autres interactions
-            else if (interaction.customId.startsWith('role_')) {
-                await this.gererAutreInteraction(interaction);
-            }
         } catch (erreur) {
             logger.erreur('Erreur lors de la gestion de l\'interaction', erreur);
             await interaction.reply({ 
@@ -263,6 +269,15 @@ class SystemeRolesNSFW {
 
         const member = interaction.member;
         const guild = interaction.guild;
+        
+        // Vérifier que guild existe
+        if (!guild) {
+            return await interaction.reply({ 
+                content: '❌ Erreur: impossible de récupérer le serveur.', 
+                ephemeral: true 
+            });
+        }
+        
         const role = guild.roles.cache.find(r => r.name === config.nom);
 
         if (!role) {
