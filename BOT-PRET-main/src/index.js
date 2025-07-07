@@ -8,6 +8,7 @@ import ClientDiscord from './client.js';
 import Logger from './services/logger.js';
 import { validateurEnvironnement } from './validateurs/environnement.js';
 import healthCheckService from './services/healthcheck.js';
+import keepAliveService from './services/keepalive.js';
 
 // Chargement des variables d'environnement
 config();
@@ -69,41 +70,77 @@ process.on('uncaughtException', (erreur) => {
     process.exit(1);
 });
 
-// Gestion de l'arrêt gracieux
-process.on('SIGINT', async () => {
-    logger.info('Signal d\'arrêt reçu, fermeture gracieuse...');
-    healthCheckService.setHealthy(false);
-    
-    // Arrêter le client Discord proprement
-    if (clientDiscord) {
-        try {
-            await clientDiscord.arreter();
-        } catch (err) {
-            logger.erreur('Erreur lors de la fermeture du client Discord', err);
-        }
-    }
-    
-    // Arrêter le serveur de health check
-    healthCheckService.arreter();
-    
-    process.exit(0);
-});
+// Variable pour éviter les arrêts multiples
+let isShuttingDown = false;
 
-process.on('SIGTERM', async () => {
-    logger.info('Signal SIGTERM reçu, fermeture gracieuse...');
-    healthCheckService.setHealthy(false);
-    
-    if (clientDiscord) {
-        try {
-            await clientDiscord.arreter();
-        } catch (err) {
-            logger.erreur('Erreur lors de la fermeture du client Discord', err);
-        }
+/**
+ * Fonction d'arrêt gracieux centralisée
+ */
+async function arreterGracieusement(signal) {
+    if (isShuttingDown) {
+        logger.info(`Signal ${signal} ignoré, arrêt déjà en cours`);
+        return;
     }
     
-    healthCheckService.arreter();
-    process.exit(0);
-});
+    isShuttingDown = true;
+    logger.info(`Signal ${signal} reçu, début de l'arrêt gracieux...`);
+    
+    // Timeout de sécurité pour forcer l'arrêt
+    const forceExitTimeout = setTimeout(() => {
+        logger.erreur('Timeout d\'arrêt gracieux atteint, arrêt forcé');
+        process.exit(1);
+    }, 10000); // 10 secondes
+    
+    try {
+        // Marquer comme non sain immédiatement
+        healthCheckService.setHealthy(false);
+        
+        // Arrêter le service keep-alive
+        logger.info('Arrêt du service keep-alive...');
+        keepAliveService.stop();
+        
+        // Arrêter le client Discord
+        if (clientDiscord) {
+            logger.info('Arrêt du client Discord...');
+            await clientDiscord.arreter();
+        }
+        
+        // Arrêter le serveur de health check
+        logger.info('Arrêt du serveur de health check...');
+        await new Promise((resolve) => {
+            healthCheckService.arreter();
+            setTimeout(resolve, 100); // Petit délai pour s'assurer de la fermeture
+        });
+        
+        clearTimeout(forceExitTimeout);
+        logger.info('Arrêt gracieux terminé');
+        process.exit(0);
+    } catch (erreur) {
+        logger.erreur('Erreur lors de l\'arrêt gracieux', erreur);
+        clearTimeout(forceExitTimeout);
+        process.exit(1);
+    }
+}
+
+// Gestion des signaux d'arrêt
+process.on('SIGINT', () => arreterGracieusement('SIGINT'));
+process.on('SIGTERM', () => arreterGracieusement('SIGTERM'));
+
+// Gestion spécifique pour Windows
+if (process.platform === 'win32') {
+    import('readline').then(({ createInterface }) => {
+        const rl = createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+        
+        rl.on('SIGINT', () => {
+            process.emit('SIGINT');
+        });
+    }).catch(err => {
+        logger.erreur('Erreur lors du chargement de readline', err);
+    });
+}
 
 // Démarrage de l'application
 demarrerApplication();

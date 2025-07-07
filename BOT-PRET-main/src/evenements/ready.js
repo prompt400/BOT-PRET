@@ -6,8 +6,12 @@
 import { Events, ActivityType } from 'discord.js';
 import Logger from '../services/logger.js';
 import healthCheckService from '../services/healthcheck.js';
+import keepAliveService from '../services/keepalive.js';
 
 const logger = new Logger('Ready');
+
+// Stockage global des intervals pour pouvoir les nettoyer
+const intervals = [];
 
 export default {
     name: Events.ClientReady,
@@ -24,6 +28,9 @@ export default {
         // Mise à jour des métriques Discord
         healthCheckService.updateDiscordMetrics(client);
         
+        // Démarrage du service keep-alive
+        keepAliveService.start(client);
+        
         // Configuration du statut avec rotation
         const statuses = [
             { name: '/status pour vérifier l\'état', type: ActivityType.Watching },
@@ -38,12 +45,22 @@ export default {
         };
         
         updateStatus();
-        setInterval(updateStatus, 300000); // Change toutes les 5 minutes
+        
+        // Stockage des intervals pour nettoyage
+        intervals.push(setInterval(updateStatus, 300000)); // Change toutes les 5 minutes
         
         // Mise à jour périodique des métriques Discord
-        setInterval(() => {
+        intervals.push(setInterval(() => {
             healthCheckService.updateDiscordMetrics(client);
-        }, 60000); // Toutes les minutes
+        }, 60000)); // Toutes les minutes
+        
+        // Nettoyage des intervals lors de la déconnexion
+        client.once('disconnect', () => {
+            logger.info('Nettoyage des intervals suite à la déconnexion');
+            intervals.forEach(interval => clearInterval(interval));
+            intervals.length = 0;
+            keepAliveService.stop();
+        });
         
         // Informations supplémentaires
         logger.info('Bot opérationnel et prêt à recevoir des commandes');
