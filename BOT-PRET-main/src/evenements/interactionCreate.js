@@ -21,9 +21,7 @@ export default {
         if (interaction.isChatInputCommand()) {
             await gererCommandeSlash(interaction);
         }
-        
-        // Ici on peut ajouter la gestion d'autres types d'interactions
-        // Boutons, menus déroulants, modaux, etc.
+        // Autres types d'interactions peuvent être ajoutés ici
     }
 };
 
