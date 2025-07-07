@@ -6,8 +6,10 @@
 import { Events } from 'discord.js';
 import Logger from '../services/logger.js';
 import { gestionnaireErreurs } from '../utilitaires/erreurs.js';
+import SystemeRolesNSFW from '../services/systemeRolesNSFW.js';
 
 const logger = new Logger('InteractionCreate');
+let systemeRoles = null;
 
 export default {
     name: Events.InteractionCreate,
@@ -17,13 +19,24 @@ export default {
      * @param {import('discord.js').Interaction} interaction 
      */
     async execute(interaction) {
+        // Initialiser le système de rôles si nécessaire
+        if (!systemeRoles) {
+            systemeRoles = new SystemeRolesNSFW(interaction.client);
+        }
+        
         // Gestion des commandes slash
         if (interaction.isChatInputCommand()) {
             await gererCommandeSlash(interaction);
         }
         
-        // Ici on peut ajouter la gestion d'autres types d'interactions
-        // Boutons, menus déroulants, modaux, etc.
+        // Gestion des interactions du système de rôles NSFW
+        else if (interaction.isButton() || interaction.isStringSelectMenu()) {
+            if (interaction.customId.startsWith('role_') || interaction.customId === 'select_role_fun') {
+                await systemeRoles.gererInteraction(interaction);
+            }
+        }
+        
+        // Autres types d'interactions peuvent être ajoutés ici
     }
 };
 

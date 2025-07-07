@@ -7,6 +7,7 @@ import { Events, ActivityType } from 'discord.js';
 import Logger from '../services/logger.js';
 import healthCheckService from '../services/healthcheck.js';
 import keepAliveService from '../services/keepalive.js';
+import SystemeRolesNSFW from '../services/systemeRolesNSFW.js';
 
 const logger = new Logger('Ready');
 
@@ -30,6 +31,15 @@ export default {
         
         // Démarrage du service keep-alive
         keepAliveService.start(client);
+        
+        // Initialisation du système de rôles NSFW
+        try {
+            const systemeRoles = new SystemeRolesNSFW(client);
+            await systemeRoles.initialiser();
+            logger.info('Système de rôles NSFW initialisé avec succès');
+        } catch (erreur) {
+            logger.erreur('Erreur lors de l\'initialisation du système de rôles NSFW', erreur);
+        }
         
         // Configuration du statut avec rotation
         const statuses = [
