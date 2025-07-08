@@ -1,0 +1,26 @@
+{
+  "name": "bot-discord-minimal",
+  "version": "1.0.0",
+  "description": "Bot Discord minimaliste et professionnel",
+  "type": "module",
+  "main": "start.js",
+  "scripts": {
+    "start": "node start.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "date-fns": "^4.1.0",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "minimal"
+  ],
+  "author": "",
+  "license": "MIT"
+}
