@@ -41,7 +41,7 @@ export default class GestionnaireCommandes {
             
             for (const fichier of fichiersCommandes) {
                 indexFichier++;
-                this.logger.progression('Chargement des commandes', indexFichier, fichiersCommandes.length);
+                this.logger.info(`Chargement de ${fichier} (${indexFichier}/${fichiersCommandes.length})`);
                 
                 const cheminFichier = join(dossierCommandes, fichier);
                 const urlFichier = pathToFileURL(cheminFichier).href;
