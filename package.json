@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Bot Discord minimaliste et professionnel",
   "main": "start.mjs",
+  "type": "module",
   "scripts": {
     "start": "node start.mjs",
     "build": "echo 'No build step required'",

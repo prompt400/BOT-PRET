@@ -5,15 +5,10 @@
  */
 
 import { config } from 'dotenv';
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
-
-// Importer les modules qui peuvent être CommonJS ou ESM
-const ClientDiscord = require('./client.js');
-const Logger = require('./services/logger.js');
-const { validateurEnvironnement } = require('./validateurs/environnement.js');
-const healthCheckService = require('./services/healthcheck.js');
+import ClientDiscord from './client.js';
+import Logger from './services/logger.js';
+import { validateurEnvironnement } from './validateurs/environnement.js';
+import healthCheckService from './services/healthcheck.js';
 
 // Chargement des variables d'environnement
 config();
