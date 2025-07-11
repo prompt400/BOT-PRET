@@ -1,5 +1,4 @@
 // Système économique complet du bot
-import { User } from '../../database/models/index.js';
 import Logger from '../../services/logger.js';
 import { EmbedBuilder } from 'discord.js';
 import { COULEURS } from '../../constantes/theme.js';
@@ -27,6 +26,18 @@ class EconomySystem {
         ];
 
         this.transactions = new Map(); // Pour éviter les duplications
+        this._User = null; // Cache pour le modèle User
+    }
+
+    /**
+     * Obtenir le modèle User avec lazy loading
+     */
+    async getUserModel() {
+        if (!this._User) {
+            const { User } = await import('../../database/models/index.js');
+            this._User = User;
+        }
+        return this._User;
     }
 
     /**
