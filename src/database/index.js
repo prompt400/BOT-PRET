@@ -1,10 +1,6 @@
-import { Sequelize } from 'sequelize';
-import Logger from '../services/logger.js';
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
+const { Sequelize } = require('sequelize');
+const logger = require('../services/logger-cjs');
 const config = require('../config/database');
-const logger = new Logger('Database');
 
 // Determiner l'environnement
 const env = process.env.NODE_ENV || 'development';
@@ -135,13 +131,11 @@ process.on('SIGTERM', async () => {
 // Initialiser la base de donnees au chargement du module
 const instance = initializeDatabase();
 
-export {
-  instance as sequelize,
+module.exports = {
+  sequelize: instance,
   Sequelize,
   initializeDatabase,
   testConnection,
   syncDatabase,
   closeConnection
 };
-
-export default instance;

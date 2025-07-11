@@ -5,7 +5,7 @@ nixPkgs = ["nodejs-18_x"]
 cmds = ["npm ci --production=false"]
 
 [start]
-cmd = "npm start"
+cmd = "node start.mjs"
 
 [variables]
 NODE_ENV = "production"

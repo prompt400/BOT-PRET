@@ -2,10 +2,9 @@
   "name": "bot-discord-minimal",
   "version": "1.0.0",
   "description": "Bot Discord minimaliste et professionnel",
-  "main": "start.js",
-  "type": "module",
+  "main": "start.mjs",
   "scripts": {
-    "start": "node start.js",
+    "start": "node start.mjs",
     "build": "echo 'No build step required'",
     "test:db": "node src/database/test-connection.js",
     "seed": "node src/database/seed-roles.js",
