@@ -80,20 +80,6 @@ async function gererBouton(interaction) {
         if (interaction.customId === 'verification_button') {
             await gererVerification(interaction);
         }
-        // Gestion des boutons analytics
-        else if (interaction.customId.includes('overview') || 
-                 interaction.customId.includes('economy') ||
-                 interaction.customId.includes('activity') ||
-                 interaction.customId.includes('metaverse') ||
-                 interaction.customId.includes('achievements')) {
-            const UserDashboard = require('../modules/analytics/UserDashboard');
-            await UserDashboard.handleInteraction(interaction);
-        }
-        // Gestion des boutons server stats
-        else if (interaction.customId === 'refresh_stats' || interaction.customId === 'export_stats') {
-            const ServerStats = require('../modules/analytics/ServerStats');
-            await ServerStats.handleDashboardInteraction(interaction);
-        }
     } catch (erreur) {
         logger.erreur(`Erreur lors du traitement du bouton ${interaction.customId}`, erreur);
         
@@ -185,11 +171,6 @@ async function gererMenuSelectif(interaction) {
     logger.info(`Menu sélectif utilisé: ${interaction.customId} par ${interaction.user.tag}`);
     
     try {
-        // Gestion du menu de navigation des stats serveur
-        if (interaction.customId === 'stats_navigation') {
-            const ServerStats = require('../modules/analytics/ServerStats');
-            await ServerStats.handleDashboardInteraction(interaction);
-        }
     } catch (erreur) {
         logger.erreur(`Erreur lors du traitement du menu ${interaction.customId}`, erreur);
         
