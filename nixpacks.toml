@@ -1,0 +1,9 @@
+# Configuration Nixpacks pour Railway
+[phases.setup]
+nixPkgs = ["nodejs-18_x"]
+
+[phases.install]
+cmds = ["npm install --production --silent --no-progress --no-fund --no-audit"]
+
+[start]
+cmd = "node index.js"
