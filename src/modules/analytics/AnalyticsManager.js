@@ -1,6 +1,8 @@
-const { EmbedBuilder } = require('discord.js');
-const Database = require('../../database');
-const logger = require('../../services/logger');
+import { EmbedBuilder } from 'discord.js';
+import Database from '../../database/index.js';
+import Logger from '../../services/logger.js';
+
+const logger = new Logger('AnalyticsManager');
 
 class AnalyticsManager {
     constructor() {
@@ -140,6 +142,12 @@ class AnalyticsManager {
      */
     async getUserStats(userId, guildId) {
         try {
+            // Vérifier si la base de données est disponible
+            if (!Database || !Database.User) {
+                logger.avertissement('Base de données non disponible pour les statistiques');
+                return null;
+            }
+            
             // Récupérer l'utilisateur de la base
             const user = await Database.User.findOne({
                 where: { discordId: userId, guildId }
@@ -206,6 +214,12 @@ class AnalyticsManager {
      */
     async getServerStats(guildId) {
         try {
+            // Vérifier si la base de données est disponible
+            if (!Database || !Database.User) {
+                logger.avertissement('Base de données non disponible pour les statistiques serveur');
+                return null;
+            }
+            
             const now = new Date();
             const dayAgo = new Date(now - 24 * 60 * 60 * 1000);
             const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
@@ -450,6 +464,11 @@ class AnalyticsManager {
      * Méthodes auxiliaires pour les calculs
      */
     async getUserEconomyRank(userId, guildId) {
+        // Vérifier si la base de données est disponible
+        if (!Database || !Database.User) {
+            return 0;
+        }
+        
         // Implémenter le calcul du rang économique
         const users = await Database.User.findAll({
             where: { guildId },
@@ -516,6 +535,15 @@ class AnalyticsManager {
     }
 
     async getServerEconomyStats(guildId) {
+        // Vérifier si la base de données est disponible
+        if (!Database || !Database.User) {
+            return {
+                totalCirculation: 0,
+                dailyTransactions: 0,
+                richestUser: null
+            };
+        }
+        
         const users = await Database.User.findAll({
             where: { guildId }
         });
@@ -573,6 +601,11 @@ class AnalyticsManager {
     }
 
     async getTopUsers(guildId, limit = 10) {
+        // Vérifier si la base de données est disponible
+        if (!Database || !Database.User) {
+            return [];
+        }
+        
         const users = await Database.User.findAll({
             where: { guildId },
             order: [['kissCoins', 'DESC'], ['flameTokens', 'DESC'], ['gemLust', 'DESC']],
@@ -586,6 +619,11 @@ class AnalyticsManager {
     }
 
     async calculateGrowthRate(guildId) {
+        // Vérifier si la base de données est disponible
+        if (!Database || !Database.User) {
+            return 0;
+        }
+        
         // Calculer le taux de croissance sur 7 jours
         const now = new Date();
         const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
@@ -698,4 +736,4 @@ class AnalyticsManager {
     }
 }
 
-module.exports = new AnalyticsManager();
+export default new AnalyticsManager();

@@ -56,7 +56,7 @@ export default {
         
         // Initialisation du système Analytics
         try {
-            const AnalyticsManager = require('../modules/analytics/AnalyticsManager');
+            const { default: AnalyticsManager } = await import('../modules/analytics/AnalyticsManager.js');
             await AnalyticsManager.initialize();
             logger.succes('✅ Système Analytics initialisé');
         } catch (error) {
