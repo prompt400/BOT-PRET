@@ -1,121 +1,78 @@
-# Bot Discord
+# Bot Discord Pro
 
-Un bot Discord moderne utilisant Discord.js v14 avec support des commandes slash.
+Un bot Discord moderne, optimisé et professionnel utilisant Discord.js v14.
 
 ## 🚀 Fonctionnalités
 
-- ✅ Commandes slash (Slash Commands)
-- ✅ Architecture modulaire
-- ✅ Gestion des erreurs robuste
-- ✅ Système de logs intégré
-- ✅ Déploiement automatique des commandes
+- ✅ **Commandes Slash** : Intégration complète avec l'API Discord
+- ✅ **Architecture Modulaire** : Facile à maintenir et à étendre
+- ✅ **Gestion des Erreurs Robuste** : Captures d'erreurs et réponses claires
+- ✅ **Déploiement Automatisé** : Intégration continue avec Railway
+- ✅ **Code Propre et Optimisé** : Respect des bonnes pratiques et standards modernes
 
 ## 📋 Prérequis
 
-- Node.js 16.9.0 ou supérieur
-- npm ou yarn
-- Un bot Discord créé sur [Discord Developer Portal](https://discord.com/developers/applications)
+- **Node.js** : v18.x ou supérieur
+- **Compte Discord** et un bot créé sur le [Portail Développeur Discord](https://discord.com/developers/applications)
 
-## 🛠️ Installation
+## 🛠️ Installation Locale
 
-### 1. Cloner le repository
+1.  **Cloner le repository** :
+    ```bash
+    git clone <votre-repo>
+    cd BOT-PRET-main
+    ```
 
-```bash
-git clone <votre-repo>
-cd BOT-PRET-main
-```
+2.  **Installer les dépendances** :
+    ```bash
+    npm install
+    ```
 
-### 2. Installer les dépendances
+3.  **Configurer les variables d'environnement** :
+    - Copier `.env.example` en `.env`
+    - Remplir `DISCORD_TOKEN` et `DISCORD_CLIENT_ID`
 
-```bash
-npm install
-```
-
-### 3. Configuration
-
-1. Copier le fichier `.env.example` en `.env` :
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Remplir les variables d'environnement dans `.env` :
-   - `DISCORD_TOKEN` : Le token de votre bot (obtenu depuis Discord Developer Portal)
-   - `CLIENT_ID` : L'ID de votre application Discord
-
-### 4. Lancer le bot en local
-
-```bash
-npm start
-```
-
-## 📁 Structure du projet
-
-```
-BOT-PRET-main/
-├── commands/           # Dossier contenant les commandes du bot
-├── index.js           # Point d'entrée principal
-├── package.json       # Dépendances et scripts
-├── .env.example       # Template des variables d'environnement
-├── .gitignore        # Fichiers à ignorer par Git
-├── railway.json      # Configuration Railway
-└── README.md         # Ce fichier
-```
+4.  **Démarrer le bot** :
+    ```bash
+    npm start
+    ```
 
 ## 🚀 Déploiement sur Railway
 
-### 1. Préparer le déploiement
+1.  **Forker le repository** sur votre compte GitHub.
+2.  **Créer un nouveau projet** sur [Railway](https://railway.app) et le lier à votre fork.
+3.  **Configurer les variables d'environnement** dans l'interface Railway :
+    - `DISCORD_TOKEN`
+    - `DISCORD_CLIENT_ID`
+4.  Railway déploiera automatiquement à chaque `git push`.
 
-1. Créer un compte sur [Railway](https://railway.app)
-2. Créer un nouveau projet
-3. Connecter votre repository GitHub
+## 📁 Structure du Projet
 
-### 2. Configurer les variables d'environnement
+- `commands/` : Contient toutes les commandes slash
+- `index.js` : Point d'entrée principal du bot
+- `package.json` : Dépendances et scripts
+- `railway.json` : Configuration de déploiement Railway
+- `nixpacks.toml` : Configuration de build Nixpacks
+- `.gitignore` : Fichiers ignorés par Git
 
-Dans Railway, ajouter les variables d'environnement suivantes :
-- `DISCORD_TOKEN` : Votre token Discord
-- `CLIENT_ID` : L'ID de votre application Discord
+## 📝 Créer une Nouvelle Commande
 
-### 3. Déployer
-
-Railway déploiera automatiquement votre bot à chaque push sur la branche principale.
-
-## 🔧 Commandes disponibles
-
-- `npm start` : Démarre le bot
-- `npm run dev` : Démarre le bot en mode développement (si configuré)
-
-## 📝 Créer une nouvelle commande
-
-Pour ajouter une nouvelle commande, créez un fichier dans le dossier `commands/` :
+1.  Créer un fichier dans `commands/` (e.g., `salut.js`).
+2.  Utiliser la structure suivante :
 
 ```javascript
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('nom-commande')
-        .setDescription('Description de la commande'),
-    
+        .setName('salut')
+        .setDescription('Dit bonjour !'),
     async execute(interaction) {
-        await interaction.reply('Réponse de la commande');
+        await interaction.reply('Bonjour !');
     },
 };
 ```
 
-## 🐛 Résolution des problèmes
-
-### Le bot ne se connecte pas
-- Vérifiez que `DISCORD_TOKEN` et `CLIENT_ID` sont correctement définis
-- Assurez-vous que le token est valide et n'a pas expiré
-
-### Les commandes ne s'affichent pas
-- Les commandes peuvent prendre jusqu'à 1 heure pour se propager globalement
-- Vérifiez les logs pour d'éventuelles erreurs
-
-## 📄 Licence
-
-Ce projet est sous licence MIT.
-
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou une pull request.
+Les contributions sont les bienvenues. N'hésitez pas à ouvrir une issue ou une pull request pour suggérer des améliorations.
