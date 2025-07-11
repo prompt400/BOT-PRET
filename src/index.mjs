@@ -9,7 +9,7 @@ import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
 
-// Importer les modules qui posent problème via require
+// Importer les modules qui peuvent être CommonJS ou ESM
 const ClientDiscord = require('./client.js');
 const Logger = require('./services/logger.js');
 const { validateurEnvironnement } = require('./validateurs/environnement.js');
