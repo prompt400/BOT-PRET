@@ -15,7 +15,7 @@ const __dirname = dirname(__filename);
 console.log('[Launcher] Démarrage du bot Discord...');
 
 // Chemin vers le fichier principal
-const mainFile = join(__dirname, 'src', 'index.js');
+const mainFile = join(__dirname, 'src', 'index.mjs');
 
 // Lancement du processus enfant
 const child = spawn('node', [mainFile], {
