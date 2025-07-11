@@ -1,4 +1,4 @@
-# Configuration Nixpacks pour Railway
+# Configuration Nixpacks optimisée pour Railway
 [phases.setup]
 nixPkgs = ["nodejs-18_x"]
 
