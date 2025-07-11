@@ -49,4 +49,4 @@ class AgeVerificationStep {
     }
 }
 
-module.exports = AgeVerificationStep;
+export default AgeVerificationStep;

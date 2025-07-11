@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
 class LanguageTestStep {
     constructor() {
@@ -251,4 +251,4 @@ class LanguageTestStep {
     }
 }
 
-module.exports = LanguageTestStep;
+export default LanguageTestStep;

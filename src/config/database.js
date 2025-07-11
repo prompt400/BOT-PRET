@@ -1,4 +1,4 @@
-﻿const logger = require('../services/logger-cjs');
+import logger from '../services/logger-cjs.js';
 
 /**
  * Configuration de la base de données PostgreSQL
@@ -57,4 +57,4 @@ if (process.env.NODE_ENV === 'production' && !process.env.DATABASE_URL) {
   logger.warn('DATABASE_URL non définie en production - La base de données ne sera pas disponible');
 }
 
-module.exports = config;
+export default config;

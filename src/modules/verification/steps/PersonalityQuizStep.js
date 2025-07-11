@@ -41,4 +41,4 @@ class PersonalityQuizStep {
     }
 }
 
-module.exports = PersonalityQuizStep;
+export default PersonalityQuizStep;

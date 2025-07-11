@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
 class EmbedAnimator {
     constructor() {
@@ -133,4 +133,4 @@ class EmbedAnimator {
     }
 }
 
-module.exports = EmbedAnimator;
+export default EmbedAnimator;

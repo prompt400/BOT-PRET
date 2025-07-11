@@ -47,4 +47,4 @@ class RulesAcceptanceStep {
     }
 }
 
-module.exports = RulesAcceptanceStep;
+export default RulesAcceptanceStep;

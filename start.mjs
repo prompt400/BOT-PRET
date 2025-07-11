@@ -22,8 +22,7 @@ const child = spawn('node', [mainFile], {
     stdio: 'inherit',
     env: {
         ...process.env,
-        LANG: 'C.UTF-8',
-        NODE_ENV: 'production'
+        LANG: 'C.UTF-8'
     }
 });
 

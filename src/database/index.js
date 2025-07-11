@@ -1,9 +1,7 @@
 import { Sequelize } from 'sequelize';
 import loggerCjs from '../services/logger-cjs.js';
-import { createRequire } from 'module';
+import config from '../config/database.js';
 
-const require = createRequire(import.meta.url);
-const config = require('../config/database');
 const logger = loggerCjs;
 
 // Determiner l'environnement

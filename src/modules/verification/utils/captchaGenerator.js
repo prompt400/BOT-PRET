@@ -1,4 +1,4 @@
-const { createCanvas } = require('canvas');
+import { createCanvas } from 'canvas';
 
 class CaptchaGenerator {
     constructor() {
@@ -87,4 +87,4 @@ class CaptchaGenerator {
     }
 }
 
-module.exports = CaptchaGenerator;
+export default CaptchaGenerator;
