@@ -8,6 +8,7 @@ import { Events, ActivityType } from 'discord.js';
 import Logger from '../services/logger.js';
 import healthCheckService from '../services/healthcheck.js';
 import { CONFIGURATION } from '../config/bot.js';
+import { testConnection, syncDatabase } from '../database/index.js';
 
 const logger = new Logger('Ready');
 
@@ -25,6 +26,31 @@ export default {
     async execute(client) {
         logger.info(`Bot connecté en tant que ${client.user.tag}`);
         logger.info(`Présent sur ${client.guilds.cache.size} serveurs`);
+        
+        // Initialisation de la base de données
+        try {
+            logger.info('🔗 Connexion à la base de données PostgreSQL...');
+            const dbConnected = await testConnection();
+            
+            if (dbConnected) {
+                logger.succes('✅ Connexion à la base de données établie');
+                
+                // Synchronisation des modèles
+                logger.info('📊 Synchronisation des modèles...');
+                const syncSuccess = await syncDatabase({ alter: true });
+                
+                if (syncSuccess) {
+                    logger.succes('✅ Modèles synchronisés avec succès');
+                } else {
+                    logger.avertissement('⚠️ Échec de la synchronisation des modèles');
+                }
+            } else {
+                logger.avertissement('⚠️ Base de données non disponible - Le bot fonctionnera sans persistance');
+            }
+        } catch (error) {
+            logger.erreur('❌ Erreur lors de l\'initialisation de la base de données:', error);
+            logger.avertissement('Le bot continuera sans base de données');
+        }
         
         // Configuration du serveur cible si spécifié
         if (CONFIGURATION.TARGET_SERVER_ID) {

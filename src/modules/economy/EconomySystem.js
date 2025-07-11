@@ -45,6 +45,12 @@ class EconomySystem {
      */
     async getOrCreateUser(discordId, username) {
         try {
+            const User = await this.getUserModel();
+            if (!User) {
+                logger.erreur('Modèle User non disponible - Base de données non initialisée');
+                return null;
+            }
+            
             let user = await User.findOne({ where: { discordId } });
             
             if (!user) {
@@ -78,6 +84,9 @@ class EconomySystem {
         this.transactions.set(transactionId, true);
         
         try {
+            const User = await this.getUserModel();
+            if (!User) throw new Error('Base de données non initialisée');
+            
             const user = await User.findOne({ where: { discordId } });
             if (!user) throw new Error('Utilisateur introuvable');
 
@@ -114,6 +123,9 @@ class EconomySystem {
         this.transactions.set(transactionId, true);
         
         try {
+            const User = await this.getUserModel();
+            if (!User) throw new Error('Base de données non initialisée');
+            
             const user = await User.findOne({ where: { discordId } });
             if (!user) throw new Error('Utilisateur introuvable');
 
@@ -145,6 +157,9 @@ class EconomySystem {
      * Convertir entre les monnaies
      */
     async convertCurrency(discordId, fromType, toType, amount) {
+        const User = await this.getUserModel();
+        if (!User) throw new Error('Base de données non initialisée');
+        
         const user = await User.findOne({ where: { discordId } });
         if (!user) throw new Error('Utilisateur introuvable');
 
@@ -195,6 +210,9 @@ class EconomySystem {
      * Obtenir le solde d'un utilisateur
      */
     async getBalance(discordId) {
+        const User = await this.getUserModel();
+        if (!User) return null;
+        
         const user = await User.findOne({ where: { discordId } });
         if (!user) return null;
 
@@ -340,6 +358,9 @@ class EconomySystem {
         this.transactions.set(transactionId, true);
 
         try {
+            const User = await this.getUserModel();
+            if (!User) throw new Error('Base de données non initialisée');
+            
             // Vérifier que les deux utilisateurs existent
             const fromUser = await User.findOne({ where: { discordId: fromDiscordId } });
             const toUser = await User.findOne({ where: { discordId: toDiscordId } });
