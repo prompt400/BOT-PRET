@@ -69,7 +69,7 @@ const deployCommands = async () => {
         
         // Déploiement global
         await rest.put(
-            Routes.applicationCommands(process.env.CLIENT_ID),
+            Routes.applicationCommands(process.env.DISCORD_CLIENT_ID),
             { body: commands }
         );
         
@@ -142,8 +142,8 @@ const login = async () => {
             throw new Error('DISCORD_TOKEN non défini dans le fichier .env');
         }
         
-        if (!process.env.CLIENT_ID) {
-            throw new Error('CLIENT_ID non défini dans le fichier .env');
+        if (!process.env.DISCORD_CLIENT_ID) {
+            throw new Error('DISCORD_CLIENT_ID non défini dans le fichier .env');
         }
         
         await client.login(process.env.DISCORD_TOKEN);
