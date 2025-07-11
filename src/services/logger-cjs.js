@@ -1,5 +1,5 @@
-﻿// Version temporaire CommonJS du logger pour les tests
-const { format } = require('date-fns');
+// Version temporaire CommonJS du logger pour les tests
+import { format } from 'date-fns';
 
 class Logger {
     constructor(contexte = 'General') {
@@ -42,5 +42,5 @@ class Logger {
     }
 }
 
-// Export par défaut pour CommonJS
-module.exports = new Logger('BotDiscord');
+// Export par défaut pour ESM
+export default new Logger('BotDiscord');

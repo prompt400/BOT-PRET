@@ -1,7 +1,7 @@
-﻿const { sequelize } = require('../index');
-const UserModel = require('./User');
-const RoleModel = require('./Role');
-const VerificationStepModel = require('./VerificationStep');
+import { sequelize } from '../index.js';
+import UserModel from './User.js';
+import RoleModel from './Role.js';
+import VerificationStepModel from './VerificationStep.js';
 
 // Initialiser les modèles
 const User = UserModel(sequelize);
@@ -162,7 +162,7 @@ User.prototype.getRecommendedRole = async function() {
 };
 
 // Exporter tous les modèles
-module.exports = {
+export {
   User,
   Role,
   VerificationStep,

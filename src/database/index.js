@@ -1,6 +1,10 @@
-const { Sequelize } = require('sequelize');
-const logger = require('../services/logger-cjs');
+import { Sequelize } from 'sequelize';
+import loggerCjs from '../services/logger-cjs.js';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 const config = require('../config/database');
+const logger = loggerCjs;
 
 // Determiner l'environnement
 const env = process.env.NODE_ENV || 'development';
@@ -76,7 +80,7 @@ async function syncDatabase(options = {}) {
 
   try {
     // Importer les modeles
-    const models = require('./models');
+    const models = await import('./models/index.js');
     
     // Synchroniser avec options par defaut pour le developpement
     const syncOptions = {
@@ -131,11 +135,13 @@ process.on('SIGTERM', async () => {
 // Initialiser la base de donnees au chargement du module
 const instance = initializeDatabase();
 
-module.exports = {
-  sequelize: instance,
+export {
+  instance as sequelize,
   Sequelize,
   initializeDatabase,
   testConnection,
   syncDatabase,
   closeConnection
 };
+
+export default instance;
