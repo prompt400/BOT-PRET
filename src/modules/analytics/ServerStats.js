@@ -1,6 +1,8 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require('discord.js');
-const AnalyticsManager = require('./AnalyticsManager');
-const logger = require('../../services/logger');
+import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } from 'discord.js';
+import AnalyticsManager from './AnalyticsManager.js';
+import Logger from '../../services/logger.js';
+
+const logger = new Logger('ServerStats');
 
 class ServerStats {
     constructor() {
@@ -934,4 +936,4 @@ class ServerStats {
     }
 }
 
-module.exports = new ServerStats();
+export default new ServerStats();

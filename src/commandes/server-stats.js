@@ -1,9 +1,11 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const ServerStats = require('../modules/analytics/ServerStats');
-const AnalyticsManager = require('../modules/analytics/AnalyticsManager');
-const logger = require('../services/logger');
+import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+import ServerStats from '../modules/analytics/ServerStats.js';
+import AnalyticsManager from '../modules/analytics/AnalyticsManager.js';
+import Logger from '../services/logger.js';
 
-module.exports = {
+const logger = new Logger('ServerStatsCmd');
+
+export default {
     data: new SlashCommandBuilder()
         .setName('server-stats')
         .setDescription('📊 Afficher les statistiques détaillées du serveur')

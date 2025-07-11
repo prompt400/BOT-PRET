@@ -1,9 +1,11 @@
-const { SlashCommandBuilder } = require('discord.js');
-const UserDashboard = require('../modules/analytics/UserDashboard');
-const AnalyticsManager = require('../modules/analytics/AnalyticsManager');
-const logger = require('../services/logger');
+import { SlashCommandBuilder } from 'discord.js';
+import UserDashboard from '../modules/analytics/UserDashboard.js';
+import AnalyticsManager from '../modules/analytics/AnalyticsManager.js';
+import Logger from '../services/logger.js';
 
-module.exports = {
+const logger = new Logger('StatsCmd');
+
+export default {
     data: new SlashCommandBuilder()
         .setName('stats')
         .setDescription('📊 Afficher vos statistiques personnelles ou celles d\'un membre')
