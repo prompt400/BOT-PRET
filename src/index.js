@@ -65,6 +65,9 @@ async function demarrerApplication() {
             throw erreur;
         }
         
+        // Activation de l'écoute pour guildMemberAdd
+        clientDiscord.verificationModule.activateGuildMemberAdd();
+
         // ÉTAPE 4: Marquer le service comme sain
         healthCheckService.setHealthy(true);
         

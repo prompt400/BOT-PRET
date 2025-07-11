@@ -31,6 +31,7 @@ npm start
 ## 📦 Commandes
 
 - `/status` - Affiche le statut du bot
+- `/reset-serveur` - Réinitialise les paramètres du serveur (uniquement pour les administrateurs). Cette commande supprimera tous les rôles (sauf '@everyone'), ainsi que toutes les catégories et canaux (texte, vocaux, stage, forum).
 
 ## 🚀 Railway
 

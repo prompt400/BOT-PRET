@@ -54,6 +54,15 @@ export default {
         // Mise à jour des métriques Discord
         healthCheckService.updateDiscordMetrics(client);
         
+        // Initialisation du système Analytics
+        try {
+            const AnalyticsManager = require('../modules/analytics/AnalyticsManager');
+            await AnalyticsManager.initialize();
+            logger.succes('✅ Système Analytics initialisé');
+        } catch (error) {
+            logger.erreur('❌ Erreur lors de l\'initialisation du système Analytics:', error);
+        }
+        
         // Configuration du statut avec rotation
         const statuses = [
             { name: '/status pour vérifier l\'état', type: ActivityType.Watching },

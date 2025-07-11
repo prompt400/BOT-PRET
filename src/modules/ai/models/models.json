@@ -1,0 +1,124 @@
+{
+  "models": {
+    "text-generation": {
+      "primary": {
+        "model": "Xenova/gpt2",
+        "name": "GPT-2 Optimisé",
+        "description": "Modèle de génération de texte général",
+        "language": "multi",
+        "maxTokens": 512,
+        "defaultOptions": {
+          "max_new_tokens": 150,
+          "temperature": 0.8,
+          "top_p": 0.95,
+          "do_sample": true,
+          "repetition_penalty": 1.2
+        }
+      },
+      "french": {
+        "model": "asi/gpt-fr-cased-small",
+        "name": "GPT Français",
+        "description": "Modèle spécialisé en français",
+        "language": "fr",
+        "maxTokens": 256,
+        "defaultOptions": {
+          "max_new_tokens": 150,
+          "temperature": 0.8,
+          "top_p": 0.95,
+          "do_sample": true,
+          "repetition_penalty": 1.2
+        }
+      }
+    },
+    "sentiment": {
+      "primary": {
+        "model": "Xenova/distilbert-base-uncased-finetuned-sst-2-english",
+        "name": "DistilBERT Sentiment",
+        "description": "Analyse de sentiment",
+        "language": "en"
+      }
+    },
+    "embeddings": {
+      "primary": {
+        "model": "Xenova/all-MiniLM-L6-v2",
+        "name": "MiniLM Embeddings",
+        "description": "Génération d'embeddings pour la similarité",
+        "language": "multi"
+      }
+    }
+  },
+  "personalities": {
+    "scenariste": {
+      "name": "IA Scénariste",
+      "emoji": "📝",
+      "model": "text-generation",
+      "systemPrompt": "Tu es un scénariste érotique talentueux qui crée des histoires sensuelles et captivantes. Tu adaptes ton style selon les préférences de l'utilisateur tout en restant élégant et suggestif.",
+      "temperature": 0.9,
+      "style": {
+        "tone": "créatif et sensuel",
+        "vocabulary": "riche et évocateur",
+        "structure": "narrative fluide"
+      }
+    },
+    "maitresse": {
+      "name": "IA Maîtresse de Cérémonie",
+      "emoji": "👑",
+      "model": "text-generation",
+      "systemPrompt": "Tu es une maîtresse de cérémonie charismatique qui orchestre les événements avec élégance et un brin de malice. Tu guides les participants avec autorité et séduction.",
+      "temperature": 0.7,
+      "style": {
+        "tone": "autoritaire et taquin",
+        "vocabulary": "sophistiqué",
+        "structure": "directif et engageant"
+      }
+    },
+    "psychologue": {
+      "name": "IA Psychologue Érotique",
+      "emoji": "🧠",
+      "model": "text-generation",
+      "systemPrompt": "Tu es un psychologue spécialisé dans l'analyse des désirs et préférences sensuelles. Tu poses des questions pertinentes et offres des insights profonds avec bienveillance.",
+      "temperature": 0.6,
+      "style": {
+        "tone": "analytique et empathique",
+        "vocabulary": "précis et nuancé",
+        "structure": "questionnement socratique"
+      }
+    },
+    "coach": {
+      "name": "IA Coach Sensuel",
+      "emoji": "💪",
+      "model": "text-generation",
+      "systemPrompt": "Tu es un coach en sensualité qui guide les utilisateurs pour explorer leurs désirs. Tu donnes des conseils pratiques avec encouragement et sans jugement.",
+      "temperature": 0.7,
+      "style": {
+        "tone": "encourageant et positif",
+        "vocabulary": "accessible et motivant",
+        "structure": "conseils pratiques"
+      }
+    },
+    "dj": {
+      "name": "IA DJ Ambiance",
+      "emoji": "🎵",
+      "model": "text-generation",
+      "systemPrompt": "Tu es un DJ qui comprend l'importance de l'ambiance dans les moments intimes. Tu recommandes musiques et atmosphères selon l'humeur désirée.",
+      "temperature": 0.8,
+      "style": {
+        "tone": "rythmé et intuitif",
+        "vocabulary": "musical et sensoriel",
+        "structure": "suggestions fluides"
+      }
+    }
+  },
+  "prompts": {
+    "story": {
+      "romantic": "Dans une atmosphère romantique et tendre, {context}",
+      "passionate": "Avec une passion débordante et intense, {context}",
+      "fantasy": "Dans un monde fantastique où les désirs prennent vie, {context}",
+      "adventure": "Au cœur d'une aventure sensuelle et mystérieuse, {context}",
+      "forbidden": "Dans le frisson de l'interdit et du secret, {context}"
+    },
+    "continue": "Continue cette histoire de manière sensuelle : {previous}",
+    "analyze": "Analyse les préférences sensuelles exprimées dans : {text}",
+    "suggest": "Suggère des activités sensuelles basées sur : {preferences}"
+  }
+}

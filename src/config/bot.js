@@ -50,5 +50,6 @@ export const CONFIGURATION = {
         maxEmbeds: 10,
         // Taille maximale des fichiers (en MB)
         tailleFichier: 8
-    }
+    },
+    NSFW_MODE: process.env.NSFW_MODE === 'true'
 };

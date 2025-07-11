@@ -47,5 +47,8 @@ export const EMOJIS = {
     // Divers
     ETOILE: '⭐',
     COEUR: '❤️',
-    FEU: '🔥'
+    FEU: '🔥',
+    VERIFICATION: '✅',
+    WAVE: '👋',
+    HORLOGE: '⏰'
 };

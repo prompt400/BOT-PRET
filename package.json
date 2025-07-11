@@ -2,19 +2,25 @@
   "name": "bot-discord-minimal",
   "version": "1.0.0",
   "description": "Bot Discord minimaliste et professionnel",
-  "type": "module",
   "main": "start.js",
   "scripts": {
-    "start": "node start.js"
+    "start": "node start.js",
+    "test:db": "node src/database/test-connection.js",
+    "seed": "node src/database/seed-roles.js",
+    "seed:roles": "node src/database/seeds/run-roles-seed.js"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "canvas": "^3.1.2",
     "chalk": "^5.4.1",
     "date-fns": "^4.1.0",
     "discord.js": "^14.14.1",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
   },
   "keywords": [
     "discord",
@@ -22,5 +28,8 @@
     "minimal"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "sequelize-cli": "^6.6.3"
+  }
 }

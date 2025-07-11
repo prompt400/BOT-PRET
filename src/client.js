@@ -9,6 +9,8 @@ import GestionnaireEvenements from './gestionnaires/evenements.js';
 import GestionnaireCommandes from './gestionnaires/commandes.js';
 import Logger from './services/logger.js';
 import { CONFIGURATION } from './config/bot.js';
+import VerificationModule from './modules/verification/VerificationModule.js';
+import EconomyEventHandler from './modules/economy/EconomyEventHandler.js';
 
 /**
  * Classe principale du client Discord
@@ -27,7 +29,9 @@ export default class ClientDiscord {
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildMessages,
                 GatewayIntentBits.MessageContent,
-                GatewayIntentBits.GuildMembers
+                GatewayIntentBits.GuildMembers,
+                GatewayIntentBits.GuildMessageReactions,
+                GatewayIntentBits.GuildVoiceStates
             ],
             partials: [
                 Partials.Channel,
@@ -54,6 +58,12 @@ export default class ClientDiscord {
         // Gestionnaires
         this.gestionnaireEvenements = new GestionnaireEvenements(this.client);
         this.gestionnaireCommandes = new GestionnaireCommandes(this.client);
+        
+        // Module de vérification
+        this.verificationModule = new VerificationModule(this.client);
+        
+        // Système économique
+        this.economyEventHandler = new EconomyEventHandler(this.client);
         
         // Configuration des écouteurs d'erreurs
         this.configurerGestionErreurs();
@@ -86,7 +96,27 @@ export default class ClientDiscord {
                 throw erreur;
             }
             
-            // ÉTAPE 3: Connexion à Discord
+            // ÉTAPE 3: Initialisation du module de vérification
+            this.logger.etape('Initialisation du module de vérification');
+            try {
+                await this.verificationModule.initialize();
+                this.logger.succes('Module de vérification initialisé');
+            } catch (erreur) {
+                this.logger.erreur('Échec de l\'initialisation du module de vérification', erreur);
+                throw erreur;
+            }
+            
+            // ÉTAPE 4: Initialisation du système économique
+            this.logger.etape('Initialisation du système économique');
+            try {
+                this.economyEventHandler.initialize();
+                this.logger.succes('Système économique initialisé');
+            } catch (erreur) {
+                this.logger.erreur('Échec de l\'initialisation du système économique', erreur);
+                throw erreur;
+            }
+            
+            // ÉTAPE 5: Connexion à Discord
             this.logger.etape('Connexion à Discord...');
             try {
                 await this.client.login(process.env.DISCORD_TOKEN);
@@ -176,6 +206,11 @@ export default class ClientDiscord {
      */
     async arreter() {
         this.logger.info('Arrêt du client Discord...');
+        
+        // Arrêter le système économique
+        if (this.economyEventHandler) {
+            this.economyEventHandler.shutdown();
+        }
         
         // Nettoyer les écouteurs pour éviter les fuites mémoire
         this.client.removeAllListeners();
