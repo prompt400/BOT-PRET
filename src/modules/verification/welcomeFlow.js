@@ -1,19 +1,19 @@
-const { EmbedBuilder, Collection } = require('discord.js');
+import { EmbedBuilder, Collection } from 'discord.js';
 
 // Import des personnalités
-const SoftPersonality = require('./personalities/SoftPersonality');
-const PlayfulPersonality = require('./personalities/PlayfulPersonality');
-const DominantPersonality = require('./personalities/DominantPersonality');
+import SoftPersonality from './personalities/SoftPersonality.js';
+import PlayfulPersonality from './personalities/PlayfulPersonality.js';
+import DominantPersonality from './personalities/DominantPersonality.js';
 
 // Import des étapes
-const LanguageTestStep = require('./steps/LanguageTestStep');
-const RulesAcceptanceStep = require('./steps/RulesAcceptanceStep');
-const AgeVerificationStep = require('./steps/AgeVerificationStep');
-const PersonalityQuizStep = require('./steps/PersonalityQuizStep');
+import LanguageTestStep from './steps/LanguageTestStep.js';
+import RulesAcceptanceStep from './steps/RulesAcceptanceStep.js';
+import AgeVerificationStep from './steps/AgeVerificationStep.js';
+import PersonalityQuizStep from './steps/PersonalityQuizStep.js';
 
 // Import des utilitaires
-const CaptchaGenerator = require('./utils/captchaGenerator');
-const EmbedAnimator = require('./utils/embedAnimator');
+import CaptchaGenerator from './utils/captchaGenerator.js';
+import EmbedAnimator from './utils/embedAnimator.js';
 
 class WelcomeFlow {
     constructor() {
@@ -222,4 +222,4 @@ class WelcomeFlow {
     }
 }
 
-module.exports = WelcomeFlow;
+export default WelcomeFlow;

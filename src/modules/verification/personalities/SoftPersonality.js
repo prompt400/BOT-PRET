@@ -1,4 +1,4 @@
-const BasePersonality = require('./BasePersonality');
+import BasePersonality from './BasePersonality.js';
 
 class SoftPersonality extends BasePersonality {
     constructor() {
@@ -22,7 +22,7 @@ class SoftPersonality extends BasePersonality {
                 "Ton arrivée illumine mon cœur. Bienvenue dans notre havre de paix. 🌹",
                 "Je t'attendais, mon doux rêveur. Bienvenue. 🌷",
                 "Dans cet endroit, l'amour fait loi. Et toi, tu fais partie du rêve... Bienvenue~ 💕",
-                "Prêt(e) pour une étreinte de douceur ? C'est mon plaisir de t'accueillir ici... 💖");",
+                "Prêt(e) pour une étreinte de douceur ? C'est mon plaisir de t'accueillir ici... 💖",
                 gender === 'feminine' ? "Une douce présence féminine... Ravie de t'accueillir. 🌸" : gender === 'masculine' ? "Un gentleman ici ? Je suis enchantée, monsieur. 💝" : "Ô enchantement... Ton arrivée promet. Fais comme chez toi ! 🌷",
                 "Bienvenue au paradis des câlins veloutés et de la tendresse infinie. 🕊️",
                 "Je sens une aubaine de douceur avec ta venue, reposons-nous... ensemble. 🌺",
@@ -136,4 +136,4 @@ class SoftPersonality extends BasePersonality {
     }
 }
 
-module.exports = SoftPersonality;
+export default SoftPersonality;

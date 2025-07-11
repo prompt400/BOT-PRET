@@ -1,4 +1,4 @@
-const BasePersonality = require('./BasePersonality');
+import BasePersonality from './BasePersonality.js';
 
 class PlayfulPersonality extends BasePersonality {
     constructor() {
@@ -130,4 +130,4 @@ class PlayfulPersonality extends BasePersonality {
     }
 }
 
-module.exports = PlayfulPersonality;
+export default PlayfulPersonality;

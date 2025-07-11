@@ -1,5 +1,6 @@
-const { Events } = require('discord.js');
-const WelcomeFlow = require('./welcomeFlow');
+import { Events } from 'discord.js';
+import WelcomeFlow from './welcomeFlow.js';
+import PlayfulPersonality from './personalities/PlayfulPersonality.js';
 
 class VerificationModule {
     constructor(client) {
@@ -10,7 +11,6 @@ class VerificationModule {
         this.verifiedRoleId = null; // À configurer
         
         // Personnalité par défaut
-        const PlayfulPersonality = require('./personalities/PlayfulPersonality');
         this.currentPersonality = new PlayfulPersonality();
         
         console.log('✅ Module de vérification initialisé');
@@ -141,14 +141,15 @@ class VerificationModule {
     /**
      * Change la personnalité du bot
      */
-    setPersonality(personalityType) {
+    async setPersonality(personalityType) {
         const personalities = {
             'soft': 'SoftPersonality',
             'playful': 'PlayfulPersonality',
             'dominant': 'DominantPersonality'
         };
         
-        const PersonalityClass = require(`./personalities/${personalities[personalityType]}.js`);
+        const modulePath = `./personalities/${personalities[personalityType]}.js`;
+        const { default: PersonalityClass } = await import(modulePath);
         this.currentPersonality = new PersonalityClass();
         console.log(`🎭 Personnalité changée en: ${personalityType}`);
     }
@@ -178,4 +179,4 @@ class VerificationModule {
     }
 }
 
-module.exports = VerificationModule;
+export default VerificationModule;

@@ -161,4 +161,4 @@ class BasePersonality {
     }
 }
 
-module.exports = BasePersonality;
+export default BasePersonality;
