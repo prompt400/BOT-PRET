@@ -1,26 +1,30 @@
-const { Sequelize } = require('sequelize');
-const logger = require('../services/logger-cjs');
-const config = require('../config/database');
+import { Sequelize } from 'sequelize';
+import Logger from '../services/logger.js';
+import { createRequire } from 'module';
 
-// Déterminer l'environnement
+const require = createRequire(import.meta.url);
+const config = require('../config/database');
+const logger = new Logger('Database');
+
+// Determiner l'environnement
 const env = process.env.NODE_ENV || 'development';
 const dbConfig = config[env];
 
 let sequelize = null;
 
 /**
- * Initialise la connexion à la base de données PostgreSQL Railway
- * @returns {Sequelize|null} Instance Sequelize ou null si DATABASE_URL n'est pas définie
+ * Initialise la connexion a la base de donnees PostgreSQL Railway
+ * @returns {Sequelize|null} Instance Sequelize ou null si DATABASE_URL n'est pas definie
  */
 function initializeDatabase() {
-  // Si DATABASE_URL n'est pas définie, retourner null
+  // Si DATABASE_URL n'est pas definie, retourner null
   if (!dbConfig.url) {
-    logger.warn('DATABASE_URL non définie - La base de données ne sera pas initialisée');
+    logger.warn('DATABASE_URL non definie - La base de donnees ne sera pas initialisee');
     return null;
   }
 
   try {
-    // Créer l'instance Sequelize avec configuration optimisée pour Railway
+    // Creer l'instance Sequelize avec configuration optimisee pour Railway
     sequelize = new Sequelize(dbConfig.url, {
       dialect: dbConfig.dialect,
       logging: dbConfig.logging,
@@ -33,70 +37,70 @@ function initializeDatabase() {
       }
     });
 
-    logger.info('? Instance Sequelize créée avec succès pour PostgreSQL Railway');
+    logger.info('[DB] Instance Sequelize creee avec succes pour PostgreSQL Railway');
     return sequelize;
   } catch (error) {
-    logger.error('? Erreur lors de la création de l\'instance Sequelize:', error);
+    logger.error('[DB] Erreur lors de la creation de l\'instance Sequelize:', error);
     return null;
   }
 }
 
 /**
- * Teste la connexion à la base de données PostgreSQL Railway
- * @returns {Promise<boolean>} True si la connexion est réussie, false sinon
+ * Teste la connexion a la base de donnees PostgreSQL Railway
+ * @returns {Promise<boolean>} True si la connexion est reussie, false sinon
  */
 async function testConnection() {
   if (!sequelize) {
-    logger.warn('Impossible de tester la connexion - Instance Sequelize non initialisée');
+    logger.warn('Impossible de tester la connexion - Instance Sequelize non initialisee');
     return false;
   }
 
   try {
     await sequelize.authenticate();
-    logger.info('? Connexion à PostgreSQL Railway établie avec succès!');
+    logger.info('[DB] Connexion a PostgreSQL Railway etablie avec succes!');
     const dbName = dbConfig.url.split('/').pop().split('?')[0];
-    logger.info('?? Base de données: ' + dbName);
+    logger.info('[DB] Base de donnees: ' + dbName);
     return true;
   } catch (error) {
-    logger.error('? Impossible de se connecter à PostgreSQL Railway:', error.message);
+    logger.error('[DB] Impossible de se connecter a PostgreSQL Railway:', error.message);
     return false;
   }
 }
 
 /**
- * Synchronise les modèles avec la base de données
+ * Synchronise les modeles avec la base de donnees
  * @param {Object} options - Options de synchronisation
- * @returns {Promise<boolean>} True si la synchronisation est réussie, false sinon
+ * @returns {Promise<boolean>} True si la synchronisation est reussie, false sinon
  */
 async function syncDatabase(options = {}) {
   if (!sequelize) {
-    logger.warn('Impossible de synchroniser - Instance Sequelize non initialisée');
+    logger.warn('Impossible de synchroniser - Instance Sequelize non initialisee');
     return false;
   }
 
   try {
-    // Importer les modèles
+    // Importer les modeles
     const models = require('./models');
     
-    // Synchroniser avec options par défaut pour le développement
+    // Synchroniser avec options par defaut pour le developpement
     const syncOptions = {
-      alter: env === 'development', // Altère les tables en développement
+      alter: env === 'development', // Altere les tables en developpement
       force: false, // Ne jamais forcer la suppression des tables
       ...options
     };
     
     await sequelize.sync(syncOptions);
-    logger.info('? Modèles synchronisés avec PostgreSQL Railway');
-    logger.info('?? Tables créées: ' + Object.keys(models).join(', '));
+    logger.info('[DB] Modeles synchronises avec PostgreSQL Railway');
+    logger.info('[DB] Tables creees: ' + Object.keys(models).join(', '));
     return true;
   } catch (error) {
-    logger.error('? Erreur lors de la synchronisation des modèles:', error.message);
+    logger.error('[DB] Erreur lors de la synchronisation des modeles:', error.message);
     return false;
   }
 }
 
 /**
- * Ferme la connexion à la base de données
+ * Ferme la connexion a la base de donnees
  * @returns {Promise<void>}
  */
 async function closeConnection() {
@@ -106,36 +110,38 @@ async function closeConnection() {
 
   try {
     await sequelize.close();
-    logger.info('? Connexion à PostgreSQL Railway fermée');
+    logger.info('[DB] Connexion a PostgreSQL Railway fermee');
     sequelize = null;
   } catch (error) {
-    logger.error('? Erreur lors de la fermeture de la connexion:', error.message);
+    logger.error('[DB] Erreur lors de la fermeture de la connexion:', error.message);
   }
 }
 
 /**
- * Gestionnaire pour fermer proprement la connexion lors de l'arrêt du processus
+ * Gestionnaire pour fermer proprement la connexion lors de l'arret du processus
  */
 process.on('SIGINT', async () => {
-  logger.info('?? Signal SIGINT reçu - Fermeture de la connexion PostgreSQL...');
+  logger.info('[DB] Signal SIGINT recu - Fermeture de la connexion PostgreSQL...');
   await closeConnection();
   process.exit(0);
 });
 
 process.on('SIGTERM', async () => {
-  logger.info('?? Signal SIGTERM reçu - Fermeture de la connexion PostgreSQL...');
+  logger.info('[DB] Signal SIGTERM recu - Fermeture de la connexion PostgreSQL...');
   await closeConnection();
   process.exit(0);
 });
 
-// Initialiser la base de données au chargement du module
+// Initialiser la base de donnees au chargement du module
 const instance = initializeDatabase();
 
-module.exports = {
-  sequelize: instance,
+export {
+  instance as sequelize,
   Sequelize,
   initializeDatabase,
   testConnection,
   syncDatabase,
   closeConnection
 };
+
+export default instance;

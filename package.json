@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Bot Discord minimaliste et professionnel",
   "main": "start.js",
+  "type": "module",
   "scripts": {
     "start": "node start.js",
+    "build": "echo 'No build step required'",
     "test:db": "node src/database/test-connection.js",
     "seed": "node src/database/seed-roles.js",
     "seed:roles": "node src/database/seeds/run-roles-seed.js"
