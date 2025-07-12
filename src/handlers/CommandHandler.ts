@@ -67,7 +67,10 @@ export class CommandHandler implements ICommandHandler {
             const fullPath = join(path, item.name);
             if (item.isDirectory()) {
                 files.push(...this.getFiles(fullPath));
-            } else if (item.name.endsWith('.ts') || item.name.endsWith('.js')) {
+            } else if ((item.name.endsWith('.ts') || item.name.endsWith('.js')) && 
+                       !item.name.endsWith('.d.ts') && 
+                       !item.name.includes('index.') &&
+                       !item.name.includes('.test.')) {
                 files.push(fullPath);
             }
         }

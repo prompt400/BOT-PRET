@@ -5,7 +5,7 @@
     "dockerfile": "./Dockerfile"
   },
   "deploy": {
-    "startCommand": "node dist/index.js",
+    "startCommand": "tsx src/index.ts",
     "healthcheck": {
       "mode": "process",
       "grace": 10
