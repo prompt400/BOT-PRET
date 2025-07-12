@@ -23,8 +23,8 @@ RUN npm ci --only=production
 ENV NODE_ENV=production
 
 # Utilisateur non-root pour la sécurité
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nodejs -u 1001
+RUN groupadd --gid 1001 nodejs
+RUN useradd --uid 1001 --gid nodejs --shell /bin/bash --create-home nodejs
 USER nodejs
 
 # Démarrage
