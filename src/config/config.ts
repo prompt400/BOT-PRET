@@ -1,6 +1,35 @@
-require('dotenv').config();
+import 'dotenv/config';
 
-const config = {
+interface Config {
+    bot: {
+        token: string;
+        clientId: string;
+        prefix: string;
+        version: string;
+    };
+    logging: {
+        level: string;
+        directory: string;
+    };
+    rateLimit: {
+        windowMs: number;
+        max: number;
+    };
+    database: {
+        uri: string;
+        options: {
+            useNewUrlParser: boolean;
+            useUnifiedTopology: boolean;
+        };
+    };
+    intents: string[];
+    cooldowns: {
+        default: number;
+        commands: Record<string, number>;
+    };
+}
+
+const config: Config = {
     // Configuration du bot
     bot: {
         token: process.env.DISCORD_TOKEN,
@@ -61,4 +90,4 @@ const validateConfig = () => {
 
 validateConfig();
 
-module.exports = config;
+export default config;

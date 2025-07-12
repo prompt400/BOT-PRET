@@ -28,9 +28,9 @@ client.commands = new Collection();
 
 // Chargement des commandes
 readdirSync(join(__dirname, 'commands'))
-    .filter(file => file.endsWith('.js'))
-    .forEach(file => {
-        const command = require(join(__dirname, 'commands', file));
+    .filter(file => file.endsWith('.ts'))
+    .forEach(async file => {
+        const { default: command } = await import(join('file://', __dirname, 'commands', file));
         if ('data' in command && 'execute' in command) {
             client.commands.set(command.data.name, command);
             console.log(`[✓] Commande chargée: ${command.data.name}`);

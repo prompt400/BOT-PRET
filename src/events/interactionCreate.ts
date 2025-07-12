@@ -1,13 +1,13 @@
-const logger = require('../utils/logger');
-const { Collection } = require('discord.js');
-const config = require('../config/config');
+import logger from '../utils/logger';
+import { Collection, Interaction } from 'discord.js';
+import config from '../config/config';
 
 const cooldowns = new Collection();
 
-module.exports = {
+export default {
     name: 'interactionCreate',
     once: false,
-    async execute(interaction) {
+    async execute(interaction: Interaction): Promise<void> {
         if (!interaction.isChatInputCommand()) return;
 
         const command = interaction.client.commands.get(interaction.commandName);
