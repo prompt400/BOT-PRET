@@ -17,9 +17,8 @@ module.exports = {
      */
     async execute(interaction) {
         const sent = await interaction.reply({ 
-            content: '🏓 Pong!', 
-            fetchReply: true 
-        });
+            content: '🏓 Pong!' 
+        }).then(response => response);
         
         const latency = sent.createdTimestamp - interaction.createdTimestamp;
         const apiLatency = Math.round(interaction.client.ws.ping);
