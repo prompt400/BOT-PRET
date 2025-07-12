@@ -3,8 +3,8 @@ import { ErrorHandler as IErrorHandler, HandlerOptions } from '../types/handlers
 import logger from '../utils/logger.js';
 
 export class ErrorHandler implements IErrorHandler {
-    private readonly client: Client;
-    private readonly directory: string;
+    public readonly client: Client;
+    public readonly directory: string;
 
     constructor(options: HandlerOptions) {
         this.client = options.client;

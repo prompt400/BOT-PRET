@@ -6,8 +6,8 @@ import logger from '../utils/logger.js';
 
 export class EventHandler implements IEventHandler {
     public readonly events: Collection<string, (...args: any[]) => Promise<void>>;
-    private readonly client: Client;
-    private readonly directory: string;
+    public readonly client: Client;
+    public readonly directory: string;
 
     constructor(options: HandlerOptions) {
         this.client = options.client;

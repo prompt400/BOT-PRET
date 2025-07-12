@@ -6,8 +6,9 @@ export default {
     execute: async (message: Message): Promise<void> => {
         if (message.author?.bot) return;
         
-if (message.channel.type === 'GUILD_TEXT') {
-    logger.info(`Message supprimé dans #${message.channel.name}`);
+const channel = message.channel;
+if ('name' in channel) {
+    logger.info(`Message supprimé dans #${channel.name}`);
 }
         // TODO: Implémentation à venir
     }

@@ -8,8 +8,8 @@ import logger from '../utils/logger.js';
 
 export class CommandHandler implements ICommandHandler {
     public readonly commands: Collection<string, Command>;
-    private readonly client: Client;
-    private readonly directory: string;
+    public readonly client: Client;
+    public readonly directory: string;
 
     constructor(options: HandlerOptions) {
         this.client = options.client;

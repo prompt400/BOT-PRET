@@ -1,7 +1,9 @@
 import { SlashCommandBuilder } from 'discord.js';
 import { CommandContext } from '../../types/commands.js';
 
-export default {
+import { Command } from '../../types/commands.js';
+
+export default <Command>{
     data: new SlashCommandBuilder()
         .setName('kick')
         .setDescription('Expulse un membre du serveur')
