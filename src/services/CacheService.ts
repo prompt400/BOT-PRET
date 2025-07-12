@@ -12,6 +12,9 @@ export class CacheService {
     private cache: Map<string, CacheItem<any>>;
     private readonly defaultTTL: number = 5 * 60 * 1000; // 5 minutes
     private readonly maxSize: number;
+    private hits: number = 0;
+    private misses: number = 0;
+    private cleanupInterval: NodeJS.Timeout | null = null;
 
     constructor(options: CacheOptions = {}) {
         this.cache = new Map();
@@ -23,8 +26,11 @@ export class CacheService {
 
         // Si l'item existe et n'est pas expiré
         if (item && Date.now() - item.timestamp < (ttl || this.defaultTTL)) {
+            this.hits++;
             return item.value as T;
         }
+        
+        this.misses++;
 
         // Si pas de fonction de récupération, retourner null
         if (!fetchFn) {
@@ -61,8 +67,8 @@ export class CacheService {
     }
 
     // Nettoyage périodique des entrées expirées
-    public startCleanupInterval(interval: number = 60000): NodeJS.Timeout {
-        return setInterval(() => {
+    public startCleanupInterval(interval: number = 60000): void {
+        this.cleanupInterval = setInterval(() => {
             const now = Date.now();
             for (const [key, item] of this.cache.entries()) {
                 if (now - item.timestamp >= this.defaultTTL) {
@@ -70,5 +76,25 @@ export class CacheService {
                 }
             }
         }, interval);
+    }
+
+    public stopCleanupInterval(): void {
+        if (this.cleanupInterval) {
+            clearInterval(this.cleanupInterval);
+            this.cleanupInterval = null;
+        }
+    }
+
+    public getSize(): number {
+        return this.cache.size;
+    }
+
+    public getStats(): { hits: number; misses: number; hitRate: number } {
+        const total = this.hits + this.misses;
+        return {
+            hits: this.hits,
+            misses: this.misses,
+            hitRate: total > 0 ? this.hits / total : 0
+        };
     }
 }

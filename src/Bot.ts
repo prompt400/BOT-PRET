@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import { CommandHandler, EventHandler, ErrorHandler } from './handlers/index.js';
 import { CacheService } from './services/CacheService.js';
 import logger from './utils/logger.js';
+import { HealthController } from './controllers/HealthController.js';
+import { MetricsService } from './services/MetricsService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = join(__filename, '..');
@@ -14,6 +16,8 @@ export class Bot {
     private readonly eventHandler: EventHandler;
     private readonly errorHandler: ErrorHandler;
     private readonly cacheService: CacheService;
+    private readonly healthController: HealthController;
+    private readonly metricsService: MetricsService;
 
     constructor() {
         // Configuration optimisée du client
@@ -41,6 +45,9 @@ export class Bot {
             maxSize: 1000
         });
 
+        this.metricsService = new MetricsService();
+        this.healthController = new HealthController(this.client, this.metricsService, this.cacheService);
+
         // Initialisation des handlers avec lazy loading
         this.commandHandler = new CommandHandler({
             client: this.client,
@@ -62,6 +69,10 @@ export class Bot {
         try {
             // Démarrage du service de cache
             this.cacheService.startCleanupInterval();
+            
+            // Démarrage du serveur de santé pour Railway
+            await this.healthController.start();
+            
             // Initialisation des handlers
             await this.errorHandler.init();
             await this.commandHandler.init();
@@ -70,9 +81,39 @@ export class Bot {
             // Connexion du bot
             await this.client.login(process.env.DISCORD_TOKEN);
             logger.info(`Bot connecté en tant que ${this.client.user?.tag}`);
+
+            // Gestion des signaux pour Railway
+            this.setupGracefulShutdown();
         } catch (error) {
             logger.error('Erreur lors du démarrage du bot:', error);
             process.exit(1);
         }
+    }
+
+    private setupGracefulShutdown(): void {
+        const gracefulShutdown = async (signal: string) => {
+            logger.info(`Signal ${signal} reçu, arrêt en cours...`);
+            
+            try {
+                // Arrêt du serveur de santé
+                this.healthController.stop();
+                
+                // Arrêt du cache
+                this.cacheService.stopCleanupInterval();
+                
+                // Déconnexion propre du bot
+                await this.client.destroy();
+                
+                logger.info('Bot arrêté proprement');
+                process.exit(0);
+            } catch (error) {
+                logger.error('Erreur lors de l\'arrêt:', error);
+                process.exit(1);
+            }
+        };
+
+        // Écoute des signaux de Railway
+        process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+        process.on('SIGINT', () => gracefulShutdown('SIGINT'));
     }
 }
