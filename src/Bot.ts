@@ -22,27 +22,45 @@ export class Bot {
     constructor() {
         // Configuration optimisée du client
         this.client = new Client({
-            intents: [GatewayIntentBits.Guilds],
+            intents: [
+                GatewayIntentBits.Guilds,
+                // Ajouter uniquement si nécessaire pour les commandes
+                // GatewayIntentBits.GuildMessages,
+                // GatewayIntentBits.MessageContent
+            ],
             makeCache: Options.cacheWithLimits({
-                MessageManager: 200, // Limite la taille du cache des messages
+                MessageManager: 0, // Désactiver si pas de messages
                 PresenceManager: 0,  // Désactive le cache des présences
                 GuildMemberManager: {
-                    maxSize: 200,
+                    maxSize: 100,
                     keepOverLimit: member => member.id === this.client.user?.id
-                }
+                },
+                ThreadManager: 0,
+                ThreadMemberManager: 0,
+                ReactionManager: 0,
+                ReactionUserManager: 0,
+                StageInstanceManager: 0,
+                VoiceStateManager: 0
             }),
             sweepers: {
                 messages: {
                     interval: 300, // 5 minutes
                     lifetime: 1800 // 30 minutes
+                },
+                users: {
+                    interval: 3600, // 1 heure
+                    filter: () => user => user.bot && user.id !== this.client.user?.id
                 }
-            }
+            },
+            shards: 'auto',
+            shardCount: 1
         });
 
         // Initialisation des services
         this.cacheService = new CacheService({
             ttl: 5 * 60 * 1000, // 5 minutes
-            maxSize: 1000
+            maxSize: 1000,
+            maxItemSize: 10 * 1024 // 10KB max par item
         });
 
         this.metricsService = new MetricsService();

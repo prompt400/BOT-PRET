@@ -1,17 +1,21 @@
 interface CacheOptions {
     ttl?: number; // Time to live in milliseconds
     maxSize?: number; // Maximum number of items in cache
+    maxItemSize?: number; // Maximum size per item in bytes
 }
 
 interface CacheItem<T> {
     value: T;
     timestamp: number;
+    size: number;
 }
 
 export class CacheService {
     private cache: Map<string, CacheItem<any>>;
     private readonly defaultTTL: number = 5 * 60 * 1000; // 5 minutes
     private readonly maxSize: number;
+    private readonly maxItemSize: number;
+    private currentSize: number = 0;
     private hits: number = 0;
     private misses: number = 0;
     private cleanupInterval: NodeJS.Timeout | null = null;
@@ -19,6 +23,8 @@ export class CacheService {
     constructor(options: CacheOptions = {}) {
         this.cache = new Map();
         this.maxSize = options.maxSize || 1000;
+        this.maxItemSize = options.maxItemSize || 10 * 1024; // 10KB par défaut
+        this.defaultTTL = options.ttl || this.defaultTTL;
     }
 
     public async get<T>(key: string, fetchFn?: () => Promise<T>, ttl?: number): Promise<T | null> {
@@ -45,25 +51,74 @@ export class CacheService {
     }
 
     public set(key: string, value: any, ttl?: number): void {
-        // Vérifier la taille maximale
-        if (this.cache.size >= this.maxSize) {
-            const oldestKey = Array.from(this.cache.entries())
-                .sort(([, a], [, b]) => a.timestamp - b.timestamp)[0][0];
-            this.cache.delete(oldestKey);
+        // Calculer la taille de l'item
+        const itemSize = this.calculateSize(value);
+        
+        // Vérifier la taille de l'item
+        if (itemSize > this.maxItemSize) {
+            console.warn(`[Cache] Item trop grand pour le cache: ${key} (${itemSize} bytes)`);
+            return;
+        }
+
+        // Si l'item existe déjà, libérer son espace
+        const existingItem = this.cache.get(key);
+        if (existingItem) {
+            this.currentSize -= existingItem.size;
+        }
+
+        // Vérifier et libérer de l'espace si nécessaire
+        while (this.cache.size >= this.maxSize || this.currentSize + itemSize > this.maxSize * 1024) {
+            const oldestKey = this.getOldestKey();
+            if (oldestKey) {
+                this.delete(oldestKey);
+            } else {
+                break;
+            }
         }
 
         this.cache.set(key, {
             value,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            size: itemSize
         });
+        this.currentSize += itemSize;
+    }
+
+    private calculateSize(obj: any): number {
+        try {
+            return JSON.stringify(obj).length;
+        } catch {
+            return 0;
+        }
+    }
+
+    private getOldestKey(): string | null {
+        let oldestKey: string | null = null;
+        let oldestTime = Infinity;
+
+        for (const [key, item] of this.cache.entries()) {
+            if (item.timestamp < oldestTime) {
+                oldestTime = item.timestamp;
+                oldestKey = key;
+            }
+        }
+
+        return oldestKey;
     }
 
     public delete(key: string): void {
-        this.cache.delete(key);
+        const item = this.cache.get(key);
+        if (item) {
+            this.currentSize -= item.size;
+            this.cache.delete(key);
+        }
     }
 
     public clear(): void {
         this.cache.clear();
+        this.currentSize = 0;
+        this.hits = 0;
+        this.misses = 0;
     }
 
     // Nettoyage périodique des entrées expirées
@@ -89,12 +144,15 @@ export class CacheService {
         return this.cache.size;
     }
 
-    public getStats(): { hits: number; misses: number; hitRate: number } {
+    public getStats(): { hits: number; misses: number; hitRate: number; size: number; itemCount: number; memoryUsage: number } {
         const total = this.hits + this.misses;
         return {
             hits: this.hits,
             misses: this.misses,
-            hitRate: total > 0 ? this.hits / total : 0
+            hitRate: total > 0 ? this.hits / total : 0,
+            size: this.cache.size,
+            itemCount: this.cache.size,
+            memoryUsage: this.currentSize / 1024 // KB
         };
     }
 }
