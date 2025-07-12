@@ -1,8 +1,8 @@
-FROM node:20.11.1-alpine
+FROM node:22.10.0-alpine
 
 WORKDIR /app
 
-# Mise à jour de npm à la version spécifiée dans package.json
+# Mise à jour de npm à la version 11.4.2
 RUN npm install -g npm@11.4.2
 
 # Installation des dépendances
