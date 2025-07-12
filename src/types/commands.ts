@@ -1,6 +1,19 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder, Client, CommandInteractionOptionResolver, AutocompleteInteraction } from 'discord.js';
 
 export interface Command {
+    data: SlashCommandBuilder;
+    type: 'CHAT_INPUT';
+    execute(context: CommandContext): Promise<void>;
+    handleAutocomplete?(interaction: AutocompleteInteraction): Promise<void>;
+}
+
+export interface CommandContext {
+    interaction: ChatInputCommandInteraction;
+    client: Client;
+    options: CommandInteractionOptionResolver;
+}
+
+export interface CommandMetadata {
     data: SlashCommandBuilder;
     category?: string;
     cooldown?: number;

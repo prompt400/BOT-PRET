@@ -1,9 +1,9 @@
-import { MiddlewareContext, ValidationRule } from '../types/middleware.js';
+import { MiddlewareContext, ValidationRule, MiddlewareFunction } from '../types/middleware.js';
 import logger from '../utils/logger.js';
 
 export class ValidationMiddleware {
     public create(rules: ValidationRule[]): MiddlewareFunction {
-        return async (context: MiddlewareContext): Promiseboolean> => {
+        return async (context: MiddlewareContext): Promise<boolean> => {
             const { interaction } = context;
             const errors: string[] = [];
 
@@ -24,7 +24,7 @@ export class ValidationMiddleware {
                 }
 
                 // Validation des limites numériques
-                if (rule.type === 'number') {
+                if (rule.type === 'number' && typeof value === 'number') {
                     if (rule.min !== undefined && value < rule.min) {
                         errors.push(`Le champ '${rule.field}' doit être supérieur ou égal à ${rule.min}.`);
                     }
