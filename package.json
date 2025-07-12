@@ -1,28 +1,35 @@
 {
-  "name": "discord-bot",
-  "version": "1.0.0",
-  "description": "Bot Discord avec les fonctionnalités essentielles",
+  "name": "discord-bot-pro",
+  "version": "1.1.0",
+  "description": "Bot Discord professionnel avec architecture moderne et optimisée",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "discord",
     "bot",
-    "discord.js"
+    "discord.js",
+    "slash-commands",
+    "professional"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Edwin <contact@edwin.dev>",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^14.21.0",
     "dotenv": "^17.2.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "eslint": "^8.45.0",
+    "eslint-config-standard": "^17.1.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=10.0.0"
   }
 }
