@@ -8,7 +8,7 @@ module.exports = {
     async execute(interaction) {
         const sent = await interaction.reply({ 
             content: '🏓 Pong!', 
-            withResponse: true 
+            fetchReply: true 
         });
         
         const latency = sent.createdTimestamp - interaction.createdTimestamp;

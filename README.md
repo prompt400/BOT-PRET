@@ -1,6 +1,6 @@
 # Bot Discord Pro
 
-Un bot Discord moderne, optimisé et professionnel utilisant Discord.js v14.
+Un bot Discord moderne, optimisé et professionnel utilisant Discord.js v14.21.0, compatible avec l'API Discord 2025.
 
 ## 🚀 Fonctionnalités
 
@@ -12,7 +12,8 @@ Un bot Discord moderne, optimisé et professionnel utilisant Discord.js v14.
 
 ## 📋 Prérequis
 
-- **Node.js** : v18.x ou supérieur
+- **Node.js** : v18.0.0 ou supérieur (recommandé : v22.x)
+- **npm** : v10.x ou supérieur
 - **Compte Discord** et un bot créé sur le [Portail Développeur Discord](https://discord.com/developers/applications)
 
 ## 🛠️ Installation Locale
