@@ -1,70 +1,61 @@
 import 'dotenv/config';
-import { Client, GatewayIntentBits, Collection, ChatInputCommandInteraction } from 'discord.js';
-import { readdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { Client, GatewayIntentBits } from 'discord.js';
+import { join } from 'path';
 import { fileURLToPath } from 'url';
+import { CommandHandler, EventHandler, ErrorHandler } from './handlers/index.js';
+import logger from './utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = join(__filename, '..');
 
-interface BotClient extends Client {
-    commands: Collection<string, Command>;
-}
+class Bot {
+    private readonly client: Client;
+    private readonly commandHandler: CommandHandler;
+    private readonly eventHandler: EventHandler;
+    private readonly errorHandler: ErrorHandler;
 
-interface Command {
-    data: {
-        name: string;
-        description: string;
-    };
-    execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
-}
+    constructor() {
+        this.client = new Client({
+            intents: [GatewayIntentBits.Guilds]
+        });
 
+        // Initialisation des handlers
+        this.commandHandler = new CommandHandler({
+            client: this.client,
+            directory: join(__dirname, 'commands')
+        });
 
-const client = new Client({
-    intents: [GatewayIntentBits.Guilds]
-}) as BotClient;
+        this.eventHandler = new EventHandler({
+            client: this.client,
+            directory: join(__dirname, 'events')
+        });
 
-client.commands = new Collection<string, Command>();
+        this.errorHandler = new ErrorHandler({
+            client: this.client,
+            directory: join(__dirname, 'errors')
+        });
+    }
 
-// Chargement des commandes
-const loadCommands = async () => {
-    const commandFiles = readdirSync(join(__dirname, 'commands'))
-        .filter(file => file.endsWith('.js') && !file.endsWith('.test.js'));
-    
-    for (const file of commandFiles) {
-        const { default: command } = await import(`./commands/${file}`);
-        if ('data' in command && 'execute' in command) {
-            client.commands.set(command.data.name, command);
-            console.log(`[✓] Commande chargée: ${command.data.name}`);
+    public async start(): Promise<void> {
+        try {
+            // Initialisation des handlers
+            await this.errorHandler.init();
+            await this.commandHandler.init();
+            await this.eventHandler.init();
+
+            // Connexion du bot
+            await this.client.login(process.env.DISCORD_TOKEN);
+            logger.info(`Bot connecté en tant que ${this.client.user?.tag}`);
+        } catch (error) {
+            logger.error('Erreur lors du démarrage du bot:', error);
+            process.exit(1);
         }
     }
-};
+}
 
-// Appel de la fonction de chargement
-loadCommands();
-
-// Gestion des interactions
-client.on('interactionCreate', async interaction => {
-    if (!interaction.isChatInputCommand()) return;
-
-    const command = client.commands.get(interaction.commandName);
-    if (!command) return;
-
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        await interaction.reply({
-            content: 'Une erreur est survenue.',
-            ephemeral: true
-        }).catch(() => {});
-    }
+// Démarrage du bot
+const bot = new Bot();
+bot.start().catch(error => {
+    logger.error('Erreur fatale:', error);
+    process.exit(1);
 });
-
-// Événement ready
-client.once('ready', () => {
-console.log(`[✓] Connecté en tant que ${client.user?.tag}`);
-});
-
-// Connexion
-client.login(process.env.DISCORD_TOKEN);
