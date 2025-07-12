@@ -11,14 +11,16 @@ COPY package*.json tsconfig.json ./
 # Installation des dépendances
 RUN npm ci
 
-# Copie du code source
-COPY src ./src
-
 # Build TypeScript
+COPY src ./src
 RUN npm run build
 
-# Nettoyage des dépendances de développement
+# Nettoyage
+RUN rm -rf src/
 RUN npm ci --only=production
+
+# Configuration de production
+ENV NODE_ENV=production
 
 # Configuration
 ENV NODE_ENV=production

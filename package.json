@@ -4,6 +4,9 @@
   "description": "Bot Discord professionnel 2025",
   "main": "dist/index.js",
   "type": "module",
+  "engines": {
+    "node": ">=22.10.0"
+  },
   "private": true,
   "scripts": {
     "start": "node dist/index.js",
