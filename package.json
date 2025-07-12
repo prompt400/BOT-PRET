@@ -1,24 +1,14 @@
 {
   "name": "discord-bot-pro",
-  "version": "1.1.0",
-  "description": "Bot Discord professionnel avec architecture moderne et optimisée",
+  "version": "2.0.0",
+  "description": "Bot Discord professionnel 2025",
   "main": "src/index.js",
   "type": "commonjs",
+  "private": true,
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "lint": "eslint .",
-    "build": "npm install --production"
+    "dev": "nodemon src/index.js --ignore logs/"
   },
-  "keywords": [
-    "discord",
-    "bot",
-    "discord.js",
-    "slash-commands",
-    "professional"
-  ],
-  "author": "Edwin <contact@edwin.dev>",
-  "license": "MIT",
   "dependencies": {
     "discord.js": "14.14.1",
     "dotenv": "16.4.1"
