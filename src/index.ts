@@ -1,7 +1,23 @@
-require('dotenv').config();
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
-const { readdirSync } = require('node:fs');
-const { join } = require('node:path');
+import 'dotenv/config';
+import { Client, GatewayIntentBits, Collection, ChatInputCommandInteraction } from 'discord.js';
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = join(__filename, '..');
+
+interface BotClient extends Client {
+    commands: Collection<string, Command>;
+}
+
+interface Command {
+    data: {
+        name: string;
+        description: string;
+    };
+    execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
+}
 
 // Initialisation du client
 const client = new Client({
