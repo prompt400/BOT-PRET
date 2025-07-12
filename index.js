@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection, REST, Routes } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, REST, Routes, ActivityType } = require('discord.js');
 const { readdirSync } = require('node:fs');
 const { join } = require('node:path');
 require('dotenv').config();
@@ -62,7 +62,7 @@ client.once('ready', async () => {
     console.log(`[✓] Connecté en tant que ${client.user.tag}`);
     console.log(`[✓] Actif sur ${client.guilds.cache.size} serveur(s)`);
     
-    client.user.setActivity('/ping', { type: 2 });
+    client.user.setActivity('/ping', { type: ActivityType.Playing });
     
     loadCommands();
     await deployCommands();
