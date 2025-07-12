@@ -16,6 +16,7 @@ module.exports = {
      * @returns {Promise<void>}
      */
     async execute(interaction) {
+        console.log(`[Command] Ping utilisé par ${interaction.user.tag}`);
         const sent = await interaction.reply({ 
             content: '🏓 Pong!' 
         }).then(response => response);
