@@ -22,8 +22,10 @@ RUN npm ci --only=production
 # Configuration de production
 ENV NODE_ENV=production
 
-# Configuration
-ENV NODE_ENV=production
+# Utilisateur non-root pour la sécurité
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nodejs -u 1001
+USER nodejs
 
 # Démarrage
 CMD ["node", "dist/index.js"]

@@ -1,6 +1,10 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder, Client, CommandInteractionOptionResolver, AutocompleteInteraction } from 'discord.js';
 
 export interface Command {
+    meta?: {
+        path: string;
+        category: string;
+    };
     data: SlashCommandBuilder;
     type: 'CHAT_INPUT';
     execute(context: CommandContext): Promise<void>;

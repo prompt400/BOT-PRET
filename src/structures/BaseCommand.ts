@@ -52,7 +52,7 @@ export abstract class BaseCommand {
         const subcommand = interaction.options.getSubcommand(false);
         const context: CommandContext = {
             interaction,
-            options: interaction.options,
+            options: interaction.options as CommandInteractionOptionResolver,
             client: interaction.client
         };
 
