@@ -1,16 +1,16 @@
-import logger from '../utils/logger';
-import { Collection, Interaction } from 'discord.js';
-import config from '../config/config';
+import logger from '../utils/logger.js';
+import { Collection, Interaction, ChatInputCommandInteraction } from 'discord.js';
+import config from '../config/config.js';
 
-const cooldowns = new Collection();
+const cooldowns = new Collection<string, Collection<string, number>>();
 
 export default {
     name: 'interactionCreate',
     once: false,
     async execute(interaction: Interaction): Promise<void> {
         if (!interaction.isChatInputCommand()) return;
-
-        const command = interaction.client.commands.get(interaction.commandName);
+        const commandInteraction = interaction as ChatInputCommandInteraction;
+        const command = commandInteraction.client.commands.get(commandInteraction.commandName);
         if (!command) return;
 
         // Gestion des cooldowns

@@ -19,12 +19,12 @@ interface Command {
     execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
 }
 
-// Initialisation du client
+
 const client = new Client({
     intents: [GatewayIntentBits.Guilds]
-});
+}) as BotClient;
 
-client.commands = new Collection();
+client.commands = new Collection<string, Command>();
 
 // Chargement des commandes
 readdirSync(join(__dirname, 'commands'))
