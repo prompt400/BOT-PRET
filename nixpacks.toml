@@ -1,9 +1,12 @@
-# Configuration Nixpacks optimisée pour Railway
+# Configuration Nixpacks optimisée pour Railway 2025
 [phases.setup]
-nixPkgs = ["nodejs-18_x"]
+nixPkgs = ["nodejs-22_x"]
 
 [phases.install]
 cmds = ["npm install --production --silent --no-progress --no-fund --no-audit"]
 
 [start]
 cmd = "node index.js"
+
+[phases.build]
+allowDirty = true
