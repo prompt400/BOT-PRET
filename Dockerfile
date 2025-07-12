@@ -2,6 +2,9 @@ FROM node:20.11.1-alpine
 
 WORKDIR /app
 
+# Mise à jour de npm à la version spécifiée dans package.json
+RUN npm install -g npm@11.4.2
+
 # Installation des dépendances
 COPY package*.json ./
 RUN npm install --production --silent
