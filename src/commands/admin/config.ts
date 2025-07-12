@@ -1,6 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
-import { CommandContext } from '../../types/commands.js';
-
+import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
 import { Command } from '../../types/commands.js';
 
 export default <Command>{
@@ -24,9 +22,9 @@ export default <Command>{
                         .setDescription('La nouvelle valeur')
                         .setRequired(true))),
 
-    async execute(context: CommandContext): Promise<void> {
+    async execute(interaction: ChatInputCommandInteraction): Promise<void> {
         // TODO: Implémenter la logique de configuration
-        await context.interaction.reply({
+        await interaction.reply({
             content: 'Cette commande sera bientôt disponible',
             ephemeral: true
         });

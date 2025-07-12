@@ -1,7 +1,7 @@
-import logger from '../utils/logger.js';
 import { Collection, Interaction, ChatInputCommandInteraction } from 'discord.js';
-import type { Command } from '../types/index.js';
-import config from '../config/config.js';
+import type { Command } from '../../types/index.js';
+import logger from '../../utils/logger.js';
+import config from '../../config/config.js';
 
 const cooldowns = new Collection<string, Collection<string, number>>();
 

@@ -53,8 +53,7 @@ export class CommandHandler implements ICommandHandler {
 
         // Supprime la commande du cache
         this.commands.delete(commandName);
-        delete require.cache[require.resolve(command.meta?.path)];
-
+        
         // Recharge la commande
         await this.loadCommands();
         logger.info(`Commande rechargée: ${commandName}`);

@@ -2,7 +2,8 @@ import {
     ChatInputCommandInteraction,
     SlashCommandBuilder,
     SlashCommandSubcommandBuilder,
-    AutocompleteInteraction
+    AutocompleteInteraction,
+    CommandInteractionOptionResolver
 } from 'discord.js';
 import { CommandContext } from '../types/commands.js';
 
