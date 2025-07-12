@@ -27,15 +27,21 @@ const client = new Client({
 client.commands = new Collection<string, Command>();
 
 // Chargement des commandes
-readdirSync(join(__dirname, 'commands'))
-    .filter(file => file.endsWith('.ts'))
-    .forEach(async file => {
-        const { default: command } = await import(join('file://', __dirname, 'commands', file));
+const loadCommands = async () => {
+    const commandFiles = readdirSync(join(__dirname, 'commands'))
+        .filter(file => file.endsWith('.js') && !file.endsWith('.test.js'));
+    
+    for (const file of commandFiles) {
+        const { default: command } = await import(`./commands/${file}`);
         if ('data' in command && 'execute' in command) {
             client.commands.set(command.data.name, command);
             console.log(`[✓] Commande chargée: ${command.data.name}`);
         }
-    });
+    }
+};
+
+// Appel de la fonction de chargement
+loadCommands();
 
 // Gestion des interactions
 client.on('interactionCreate', async interaction => {

@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction } from 'discord.js';
-import pingCommand from './ping';
+import pingCommand from './ping.js';
 
 describe('Ping Command', () => {
   let mockInteraction: jest.Mocked<ChatInputCommandInteraction>;
