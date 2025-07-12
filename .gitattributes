@@ -1,0 +1,8 @@
+# Ignore generated JavaScript files in language statistics
+dist/* linguist-generated=true
+*.js linguist-detectable=false
+*.d.ts linguist-detectable=false
+
+# Mark TypeScript files as the main language
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
