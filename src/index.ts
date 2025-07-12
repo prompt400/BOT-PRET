@@ -57,7 +57,7 @@ client.on('interactionCreate', async interaction => {
 
 // Événement ready
 client.once('ready', () => {
-    console.log(`[✓] Connecté en tant que ${client.user.tag}`);
+console.log(`[✓] Connecté en tant que ${client.user?.tag}`);
 });
 
 // Connexion
